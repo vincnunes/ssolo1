@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+                <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <h:form>
+        <rich:toolBar id="menu">
+            <rich:dropDownMenu>
+                <f:facet name="label">#{msg['commons.menu.cadastros']}</f:facet>
+                <rich:menuItem action="#{crudArte.iniciar}" rendered="#{permissoes.orgao.ver}">#{msg['arte.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudAtividade.iniciar}">#{msg['atividade.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudBanco.iniciar}" rendered="#{permissoes.mapp.ver}">#{msg['banco.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudCidade.iniciar}" rendered="#{permissoes.atualizarMapp.ver}">#{msg['cidade.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudCliente.iniciar}" rendered="#{permissoes.atualizarOrcamento.ver}">#{msg['cliente.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudCola.iniciar}" >#{msg['cola.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudContato.iniciar}" >#{msg['contato.title.menu']}</rich:menuItem>
+            </rich:dropDownMenu>
+            <!-- 
+            <rich:dropDownMenu styleClass="no">
+                <f:facet name="label">#{msg['commons.menu.consultas']}</f:facet>
+                <rich:menuItem action="#{listVincularAcao.iniciar}" rendered="#{permissoes.vincularAcao.ver}">#{msg['mapp.title.menu.consulta']}</rich:menuItem>
+                <rich:menuItem action="#{vinculaAcaoResponsavel.iniciar}">#{msg['acao.title.menu']}</rich:menuItem>
+            </rich:dropDownMenu>
+            <rich:dropDownMenu>
+                <f:facet name="label">#{msg['commons.menu.relatorios']}</f:facet>
+                <rich:menuItem action="#{listCronFisFinanceiro.iniciar}" rendered="#{permissoes.cronogramaFisicoFinanceiro.ver}">#{msg['commons.menu.relatorio.cronogramafisicofinanceiro']}</rich:menuItem>
+                <rich:menuItem action="#{listCronFisFinanceiroAcumulado.iniciar}" rendered="#{permissoes.cronogramaFisicoFinanceiroAcumulado.ver}">#{msg['commons.menu.relatorio.cronogramafisicofinanceiroacumulado']}</rich:menuItem>
+                <rich:menuItem action="#{viewAcaoMapp.iniciar}" rendered="#{permissoes.mappPorAcao.ver}">#{msg['acao.mapp.menu']}</rich:menuItem>
+                <rich:menuItem action="#{valoresPorPrograma.iniciar}" rendered="#{permissoes.valoresPorPrograma.ver}">#{msg['resumo.title.menu']}</rich:menuItem>
+            </rich:dropDownMenu>
+             -->
+        </rich:toolBar>
+    </h:form>
+
+</ui:composition>

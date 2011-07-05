@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="solicitacaoVendedor" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.4641000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="TITULO" hAlign="Center" vAlign="Middle" fontSize="14" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+	<style name="RODAPE" hAlign="Right" vAlign="Middle" isBold="true" isItalic="true" isUnderline="false" isStrikeThrough="false"/>
+	<style name="LINHA"/>
+	<style name="LABEL_CABECALHO" style="INFO_LABEL_TITULO" isBlankWhenNull="false" fontSize="11" isItalic="false" isUnderline="false" isStrikeThrough="false">
+		<box topPadding="0"/>
+	</style>
+	<style name="DADOS_CABECALHO" style="INFO_DADOS_TITULO" hAlign="Left" isBlankWhenNull="true" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false">
+		<box topPadding="0" leftPadding="5"/>
+	</style>
+	<style name="NOME_EMPRESA" hAlign="Center" vAlign="Middle" isBlankWhenNull="false" fontSize="20" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+	<style name="INFO_DADOS_TITULO" fill="Solid" hAlign="Right" vAlign="Middle" isBlankWhenNull="true" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" isPdfEmbedded="true">
+		<box>
+			<pen lineWidth="0.0"/>
+			<topPen lineWidth="0.0"/>
+			<leftPen lineWidth="0.0"/>
+			<bottomPen lineWidth="0.0"/>
+			<rightPen lineWidth="0.0"/>
+		</box>
+	</style>
+	<style name="INFO_LABEL_TITULO" hAlign="Right" vAlign="Middle" isBlankWhenNull="false" fontSize="11" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" isPdfEmbedded="true">
+		<box>
+			<pen lineWidth="0.0"/>
+			<topPen lineWidth="0.0"/>
+			<leftPen lineWidth="0.0"/>
+			<bottomPen lineWidth="0.0"/>
+			<rightPen lineWidth="0.0"/>
+		</box>
+	</style>
+	<field name="dataInicio" class="java.lang.String"/>
+	<field name="dataFim" class="java.lang.String"/>
+	<field name="id" class="java.lang.String"/>
+	<field name="vendedor.nome" class="java.lang.String"/>
+	<group name="vendedor_solicitacao" minHeightToStartNewPage="20">
+		<groupExpression><![CDATA[$F{vendedor.nome}]]></groupExpression>
+		<groupHeader>
+			<band splitType="Stretch"/>
+		</groupHeader>
+		<groupFooter>
+			<band height="21">
+				<textField>
+					<reportElement x="0" y="0" width="343" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{vendedor.nome}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="vendedor_solicitacao">
+					<reportElement x="343" y="0" width="122" height="20"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{vendedor_solicitacao_COUNT}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="120" splitType="Stretch">
+			<textField>
+				<reportElement style="INFO_DADOS_TITULO" x="499" y="2" width="57" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{PAGE_NUMBER} + " de " + ($V{PAGE_COUNT} == 0 ? 1 : $V{PAGE_COUNT})]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm:ss">
+				<reportElement style="INFO_DADOS_TITULO" x="499" y="42" width="57" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="1" y="3" width="58" height="60"/>
+				<imageExpression class="java.lang.String"><![CDATA["E:\\vinicius\\Documentos\\workspace\\ssolo\\WebContent\\logomarca.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="INFO_LABEL_TITULO" x="458" y="42" width="41" height="20"/>
+				<textElement/>
+				<text><![CDATA[Hora:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="INFO_LABEL_TITULO" x="458" y="22" width="41" height="20"/>
+				<textElement/>
+				<text><![CDATA[Data:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="INFO_LABEL_TITULO" x="458" y="2" width="41" height="20"/>
+				<textElement/>
+				<text><![CDATA[Página:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="NOME_EMPRESA" x="127" y="4" width="276" height="30"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Newgraf - Gráfica e Editora]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="TITULO" x="127" y="38" width="276" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estatística Orçamento x Vendedor]]></text>
+			</staticText>
+			<line>
+				<reportElement style="LINHA" mode="Opaque" x="1" y="0" width="555" height="1" forecolor="#000000" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineColor="#000000"/>
+				</graphicElement>
+			</line>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement style="INFO_DADOS_TITULO" x="499" y="22" width="57" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement style="LINHA" mode="Opaque" x="0" y="62" width="555" height="1" forecolor="#000000" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineColor="#000000"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="LABEL_CABECALHO" x="1" y="66" width="245" height="20"/>
+				<textElement/>
+				<text><![CDATA[Quantidade de Solicitações no período de:]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="DADOS_CABECALHO" x="413" y="66" width="59" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$P{REPORT_MAX_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="DADOS_CABECALHO" x="246" y="66" width="63" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dataInicio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="LABEL_CABECALHO" x="309" y="66" width="14" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[a]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="DADOS_CABECALHO" x="323" y="66" width="63" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{dataFim}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="LABEL_CABECALHO" x="386" y="66" width="27" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[=>]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="LABEL_CABECALHO" x="1" y="97" width="342" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Vendedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="LABEL_CABECALHO" x="343" y="97" width="122" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Qtd. Solicitações]]></text>
+			</staticText>
+			<line>
+				<reportElement style="LINHA" mode="Opaque" x="0" y="119" width="555" height="1" forecolor="#000000" backcolor="#000000"/>
+				<graphicElement>
+					<pen lineColor="#000000"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

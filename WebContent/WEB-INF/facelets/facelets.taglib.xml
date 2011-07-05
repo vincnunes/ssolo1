@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE facelet-taglib PUBLIC
+    "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
+    "http://java.sun.com/dtd/web-facesconfig_1_0.dtd">
+<facelet-taglib>
+    <namespace>http://www.hnvl.com/facelets</namespace>
+    <tag>
+        <tag-name>toolbar</tag-name>
+        <source>../../webcomponentes/toolbar.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>menu</tag-name>
+        <source>../../webcomponentes/menu.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>inputText</tag-name>
+        <source>../../webcomponentes/inputText.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>inputTextarea</tag-name>
+        <source>../../webcomponentes/inputTextarea.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>inputDate</tag-name>
+        <source>../../webcomponentes/inputDate.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>outputText</tag-name>
+        <source>../../webcomponentes/outputText.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>outputDate</tag-name>
+        <source>../../webcomponentes/outputDate.xhtml</source>
+    </tag>
+    <tag>
+        <tag-name>selectOneListBox</tag-name>
+        <source>../../webcomponentes/selectOneListBox.xhtml</source>
+    </tag>
+    
+</facelet-taglib>

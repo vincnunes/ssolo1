@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:hnvl="http://www.hnvl.com/facelets">
+
+    <f:view>
+        <ui:composition template="/templates/padrao.xhtml">
+        
+        <ui:define name="title">${msg['cliente.title']}</ui:define>
+        <ui:define name="operacao">${msg['commons.listar']}</ui:define>
+        
+        <ui:define name="toolbar">
+            <hnvl:toolbar formulario="#{crudCliente}" novo="true" filtrar="true" cancelar="true"/>
+        </ui:define>
+                    
+        <ui:define name="body">
+            <div style="width: 100%"> 
+                <div id="filtros">
+                    <fieldset>
+                        <legend>${msg['commons.filtros']}</legend>
+                        <h:panelGrid columns="2" cellspacing="5" styleClass="tab-edita" columnClasses="rotulo,none">
+                            <hnvl:inputText id="nomeInput" label="#{msg['commons.nome']}" value="#{crudCliente.selecionado.nome }" />
+                        </h:panelGrid>
+                    </fieldset>
+                </div>
+            </div>
+            
+	        <div style="width: 100%">
+                <h:dataTable value="#{crudCliente.selecionados}" var="cliente" styleClass="lista-admin"
+                      rendered="#{!empty crudCliente.selecionados}" rowClasses="odd, zebra" id="orgaos"
+                      columnClasses="col-centralizado,col-esquerdo,col-esquerdo">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg['commons.id']}" />
+                        </f:facet>
+                        <a4j:commandLink reRender="formulario">
+                            <h:outputText value="#{cliente.id}" />
+                            <f:setPropertyActionListener target="#{crudCliente.selecionado}" value="#{cliente}" />
+                        </a4j:commandLink>
+                    </h:column>
+        
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg['commons.nome']}"/>
+                        </f:facet>
+                        <h:outputText value="#{cliente.nome}"/>
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg['dadosEmpresa.cpfCnpj']}"/>
+                        </f:facet>
+                        <h:outputText value="#{cliente.dados.cpfCnpj}"/>
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg['situacao.status']}"/>
+                        </f:facet>
+                        <h:outputText value="#{cliente.situacao.status.nome}"/>
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg['situacao.motivo']}"/>
+                        </f:facet>
+                        <h:outputText value="#{cliente.situacao.motivo}"/>
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg['situacao.dataAtualizacao']}"/>
+                        </f:facet>
+                        <h:outputText value="#{cliente.situacao.dataAtualizacao}">
+                        	<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                        </h:outputText>
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{msg['cliente.vendedor']}"/>
+                        </f:facet>
+                        <h:outputText value="#{cliente.vendedor.nome}"/>
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">
+                           <h:outputText value="#{msg['commons.alterar']}" styleClass="txtesq" /> 
+                        </f:facet>
+                        <a4j:commandLink reRender="formulario" action="#{crudCliente.editar }" rendered="#{permissoesBean.editarCliente.editar}">
+                            <img src="#{facesContext.externalContext.requestContextPath}/imagens/table-edit.png" alt="#{msg['commons.alterar']}" title="#{msg['commons.alterar']}"/>
+                            <f:setPropertyActionListener target="#{crudCliente.selecionado}" value="#{cliente}" />
+                        </a4j:commandLink>
+                        
+                        <h:commandLink action="#{alterarSituacaoClienteBean.iniciar }" rendered="#{permissoesBean.salvarClienteFinanceiro.criar}">
+                            <img src="#{facesContext.externalContext.requestContextPath}/imagens/table-edit.png" alt="#{msg['commons.auditar']}" title="#{msg['commons.alterar']}"/>
+                            <f:setPropertyActionListener target="#{alterarSituacaoClienteBean.selecionado}" value="#{cliente}" />
+                        </h:commandLink>
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </ui:define>
+        
+        </ui:composition>
+    </f:view>
+</jsp:root>

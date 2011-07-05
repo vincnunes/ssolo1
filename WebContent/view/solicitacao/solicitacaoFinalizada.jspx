@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:seinfra="http://www.seinfra.ce.gov.br/facelets">
+
+    <f:view>
+        <ui:composition template="/templates/padrao.xhtml">
+        
+        
+        <ui:define  name="title">${msg['solicitacao.title']}</ui:define>
+        <ui:define name="operacao">${msg['commons.listar']}</ui:define>
+                
+        <ui:define name="toolbar">
+        <seinfra:toolbar formulario="#{crudSolicitacao}" filtrar="true" cancelar="true"/>
+        </ui:define>            
+        <ui:define name="body"> 
+	        <div style="width: 100%"> 
+		        <div id="filtros">
+		            <fieldset>
+		                <legend>${msg['commons.filtros']}</legend>
+		                <h:panelGrid columns="2" cellspacing="5" styleClass="tab-edita" columnClasses="rotulo,none">
+                            <h:outputText value="#{msg['solicitacao.cliente']}"/>
+                            <h:selectOneListbox id="clienteSelect" size="1" value="#{crudSolicitacao.selecionado.cliente}">
+                                <f:selectItem itemValue="null" itemLabel="..."/>
+                                <f:selectItems value="#{crudSolicitacao.clientes}"/>
+                                <a4j:support event="onchange" reRender="formulario" action="#{crudSolicitacao.atualizarEnderecosCliente}"/>
+                            </h:selectOneListbox>
+                            
+                            <h:outputText value="#{msg['solicitacao.agencia']}"/>
+                            <h:selectOneListbox id="agenciaSelect" size="1" value="#{crudSolicitacao.selecionado.agencia}" label="#{msg['solicitacao.agencia']}">
+                                <f:selectItem itemValue="null" itemLabel="..."/>
+                                <f:selectItems value="#{crudSolicitacao.agenciasPublicitarias}"/>
+                                <a4j:support event="onchange" reRender="formulario" action="#{crudSolicitacao.atualizarEnderecosAgencia}"/>
+                            </h:selectOneListbox>
+                            
+                            <h:outputText value="#{msg['solicitacao.transportadora']}"/>
+                            <h:selectOneListbox id="transportadoraSelect" size="1" value="#{crudSolicitacao.selecionado.transportadora}" label="#{msg['solicitacao.transportadora']}">
+                                <f:selectItem itemValue="null" itemLabel="..."/>
+                                <f:selectItems value="#{crudSolicitacao.transportadoras}"/>
+                            </h:selectOneListbox>
+                        </h:panelGrid>
+                        
+                        <h:panelGrid columns="4" cellspacing="5" styleClass="tab-edita" columnClasses="rotulo,none">
+                            <hnvl:inputDate id="dataFinalizacaoOutput" label="#{msg['solicitacao.data.finalizacao']}" value="#{crudSolicitacao.selecionado.dataFinalizacao}"/>
+                            <hnvl:inputDate id="dataEntregaInput" label="#{msg['solicitacao.data.entrega']}" value="#{crudSolicitacao.selecionado.dataEntrega}"/>
+                            <hnvl:inputDate id="dataOutput" label="#{msg['commons.data']}" value="#{crudSolicitacao.selecionado.dataCadastro}" />
+                        </h:panelGrid>
+                        
+		            </fieldset>
+		        </div>
+	        </div> 
+	        
+	        <div style="width: 100%">
+		        <h:dataTable value="#{crudSolicitacao.finalizados}"  var="solicitacao" styleClass="lista-admin" rendered="#{!empty crudSolicitacao.selecionados}" id="solicitacaoList" 
+		              rowClasses="odd, zebra" columnClasses="col-centralizado,col-esquerdo,col-esquerdo,col-esquerdo,col-centralizado,col-esquerdo,col-centralizado" >
+		            
+                    <h:column>
+		                <f:facet name="header">${msg['commons.id']}</f:facet>
+	                    <h:outputText value="#{solicitacao.id}" />
+		            </h:column>
+                    
+                    <h:column>
+		                <f:facet name="header">${msg['solicitacao.vendedor']}</f:facet>
+	                    <h:outputText value="#{solicitacao.vendedor.nome}" />
+		            </h:column>
+                    
+                    <h:column>
+		                <f:facet name="header">${msg['commons.data']}</f:facet>
+	                    <h:outputText value="#{solicitacao.dataCadastro}" />
+		            </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">${msg['solicitacao.quantidade']}</f:facet>
+                        <h:outputText value="#{solicitacao.quantidade}" />
+                    </h:column>
+		
+                    <h:column>
+                        <f:facet name="header">${msg['commons.status']}</f:facet>
+                        <h:outputText value="#{solicitacao.status.nome}" />
+                    </h:column>
+		
+		            <h:column>
+		                <f:facet name="header">${msg['commons.alterar']}</f:facet>
+		                <h:commandLink action="#{crudSolicitacao.relatorio}" > 
+		                    <img src="/auth/imagens/table-edit.png" alt="Alterar Registro" title="Alterar Registro"/>
+		                    <f:setPropertyActionListener target="#{crudEmitenteDestinatario.selecionado}" value="#{solicitacao}" />
+		                </h:commandLink>
+		            </h:column>
+		              
+		        </h:dataTable>
+		        
+	        </div>
+        </ui:define>
+        
+        </ui:composition>
+    </f:view>
+</jsp:root>

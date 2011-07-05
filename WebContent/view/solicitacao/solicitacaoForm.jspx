@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root version="2.0" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:cjsp="http://java.sun.com/jsp/jstl/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"    
+    xmlns:hnvl="http://www.hnvl.com/facelets">
+
+    <f:view>
+        <ui:composition template="/templates/padrao.xhtml">
+            <ui:define name="title">${msg['solicitacao.title']}</ui:define>
+            <ui:define name="operacao">${msg[crudSolicitacao.selecionado.id > 0 ? 'commons.alterar' : 'commons.criar']}</ui:define>
+            
+            <ui:define name="toolbar">
+                <hnvl:toolbar formulario="#{crudSolicitacao}" consultar="true" novo="#{permissoesBean.solicitacao.criar }" salvar="#{permissoesBean.solicitacao.criar }" finalizar="#{permissoesBean.solicitacaoFinalizar.ver }"/>
+            </ui:define>
+            
+            <ui:define name="body">
+            	<fieldset>
+					<legend>${msg['solicitacao.dados']}</legend>
+					<h:panelGrid columns="4" styleClass="tab-edita" cellspacing="3" columnClasses="rotulo,none,rotulo,none">
+						<h:outputLabel value="#{msg['solicitacao.vendedor']}"/>
+						<f:subview id="vendedorView" rendered="#{!crudSolicitacao.administrador}">
+	                		<h:outputText id="vendorOutput" value="#{crudSolicitacao.vendedor.nome}"/>
+	                	</f:subview>
+	                	<f:subview id="administradorValorView" rendered="#{crudSolicitacao.administrador}">
+	                		<h:selectOneListbox id="vendedorSelect" size="1" value="#{crudSolicitacao.selecionado.vendedor}">
+							    <f:selectItem itemValue="null" itemLabel="..."/>
+							    <f:selectItems value="#{crudSolicitacao.vendedores}"/>
+							</h:selectOneListbox>
+	                	</f:subview>
+	                	<h:outputText value="#{msg['commons.data']}"/>
+	                    <h:outputText value="#{crudSolicitacao.dataCadastro}" style="margin: 0 70px 0 0;">
+	                    	<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+	                    </h:outputText>
+                    </h:panelGrid>
+				</fieldset>
+            	
+            	<fieldset>
+					<legend>${msg['solicitacao.interessado']}</legend>
+					<h:panelGrid columns="2" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none">
+						<h:outputText value="#{msg['solicitacao.cliente']}"/>
+	                    <h:selectOneListbox id="clienteSelect" size="1" value="#{crudSolicitacao.selecionado.cliente}">
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudSolicitacao.clientes}"/>
+						    <a4j:support event="onchange" reRender="formulario" action="#{crudSolicitacao.atualizarAssociadosCliente}"/>
+						</h:selectOneListbox>
+                        
+	                    <h:outputText value="#{msg['solicitacao.agencia']}"/>
+						<h:selectOneListbox id="agenciaSelect" size="1" value="#{crudSolicitacao.selecionado.agencia}">
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudSolicitacao.agenciasPublicitarias}"/>
+						    <a4j:support event="onchange" reRender="formulario" action="#{crudSolicitacao.atualizarAssociadosAgencia}"/>
+						</h:selectOneListbox>
+                        
+	                    <h:outputText value="#{msg['solicitacao.transportadora']}"/>
+						<h:selectOneListbox id="transportadoraSelect" size="1" value="#{crudSolicitacao.selecionado.transportadora}">
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudSolicitacao.transportadoras}"/>
+						</h:selectOneListbox>
+					</h:panelGrid>
+				</fieldset>
+				
+                <f:subview id="locaisEntregaView" rendered="#{not empty crudSolicitacao.selecionado.cliente or not empty crudSolicitacao.selecionado.agencia}">
+                    <fieldset>
+                        <legend>${msg['solicitacao.locais.entrega']}</legend>
+                        <h:panelGrid columns="3" columnClasses="rotulo,none,none">
+                            <h:outputLabel value="#{msg['solicitacao.associados']}:"/>
+                            <h:selectOneListbox id="associadoSelect" size="1" value="#{crudSolicitacao.associado}">
+                                <f:selectItem itemValue="null" itemLabel="..."/>
+                                <f:selectItems value="#{crudSolicitacao.associados}"/>
+                            </h:selectOneListbox>
+                            <a4j:commandButton value="#{msg['commons.adicionar'] }" action="#{crudSolicitacao.adicionarAssociado}" reRender="formulario"/>
+                        </h:panelGrid>
+                        
+                        <rich:dataGrid columns="1" value="#{crudSolicitacao.selecionado.locaisEntrega}" var="local">
+                            <rich:panel>
+                                <h:panelGrid columns="4" columnClasses="rotulo,none">
+                                    <h:outputLabel for="associadoQuantidadeInput" value="#{local.associado.nome}:" style="font-weight: bold;"/>
+                                    <h:inputText id="associadoQuantidadeInput" value="#{local.quantidade}" style="margin: 0 15px; width: 50px;">
+                                    	<rich:jQuery id="maskAssociadoQuantidade" query="numeric()" selector="#associadoQuantidadeInput" timing="immediate"/>
+                                    </h:inputText>
+                                    <a4j:commandButton value="#{msg['commons.excluir'] }" action="#{crudSolicitacao.adicionarAssociado}" reRender="formulario">
+                                        <f:setPropertyActionListener value="#{local}" target="#{crudSolicitacao.excluirEndereco }" />
+                                    </a4j:commandButton>
+                                </h:panelGrid>
+                            </rich:panel>
+                        </rich:dataGrid>
+                    </fieldset>
+                </f:subview>
+                
+				<fieldset>
+					<legend>${msg['solicitacao.especificacao']}</legend>
+					<h:panelGrid columns="4" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none,rotulo,none">
+	                    <h:outputText value="#{msg['solicitacao.servico']}"/>
+						<h:selectOneListbox id="servicoSelect" size="1" value="#{crudSolicitacao.selecionado.servico}" style="width: 150px;">
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudSolicitacao.servicos}"/>
+						    <a4j:support event="onchange" reRender="formulario" />
+						</h:selectOneListbox>
+						
+						<h:outputLabel value="#{msg['solicitacao.quantidade']}"/>
+						<h:inputText id="quantidadeInput" value="#{crudSolicitacao.selecionado.quantidade}" style="width: 50px; margin: 0 100px 0 0;">
+							<rich:jQuery id="maskQuantidade" query="numeric()" selector="#quantidadeInput" timing="onload"/>
+						</h:inputText>
+					</h:panelGrid>	
+					<h:panelGrid columns="1" cellspacing="5" columnClasses="width-50,width-50">
+	                	<h:column>
+							<fieldset>
+								<legend>${msg['solicitacao.papel.gramatura']}</legend>
+								<h:dataTable id="tablePapelGramatura" value="#{crudSolicitacao.selecionado.papel}" var="pg">
+									<h:column>
+			                            <f:facet name="header">${msg['solicitacao.papel']}</f:facet>
+										<h:selectOneListbox id="papelSelect" size="1" value="#{pg.papel}">
+										    <f:selectItem itemValue="null" itemLabel="..."/>
+										    <f:selectItems value="#{crudSolicitacao.papeis}"/>
+										</h:selectOneListbox>
+			                        </h:column>
+									<h:column>
+			                            <f:facet name="header">${msg['solicitacao.gramatura']}</f:facet>
+										<h:selectOneListbox id="gramaturaSelect" size="1" value="#{pg.gramatura}">
+										    <f:selectItem itemValue="null" itemLabel="..."/>
+										    <f:selectItems value="#{crudSolicitacao.gramaturas}"/>
+										</h:selectOneListbox>
+			                        </h:column>
+			                        <h:column>
+			                        	<a4j:commandButton value="X" reRender="formulario">
+			                        		<f:setPropertyActionListener value="#{pg}" target="#{crudSolicitacao.excluirPapelGramatura }" />
+			                        	</a4j:commandButton>
+			                        </h:column>
+								</h:dataTable>
+	 	                        <a4j:commandButton value="#{msg['commons.adicionar'] }"
+			                       	action="#{crudSolicitacao.adicionarPapelGramatura }" reRender="formulario"/>
+							</fieldset>
+	                	</h:column>
+					</h:panelGrid>
+					<h:panelGrid columns="4" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none,rotulo,none">
+						<h:outputLabel value="#{msg['solicitacao.quantidade.entrega']}"/>
+						<h:inputText id="quantidadeEntregaInput" value="#{crudSolicitacao.selecionado.quantidadeEntrega}" style="width: 50px;">
+							<rich:jQuery id="maskQuantidadeEntrega" query="numeric()" selector="#quantidadeEntregaInput" timing="onload"/>
+						</h:inputText>
+						
+						<h:outputText value="#{msg['solicitacao.paginas']}"/>
+	                    <h:selectOneListbox id="paginaSelect" size="1" value="#{crudSolicitacao.selecionado.paginas}">
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudSolicitacao.paginas}"/>
+						</h:selectOneListbox>
+	                    
+	                    <h:outputLabel value="#{msg['solicitacao.vias']}"/>
+						<h:inputText id="viasInput" value="#{crudSolicitacao.selecionado.vias}" style="width: 50px;">
+							<rich:jQuery id="maskVias" query="numeric()" selector="#viasInput" timing="onload"/>
+						</h:inputText>
+	                    
+	                    <hnvl:inputText id="formatoAbertoInput" label="#{msg['solicitacao.formato.aberto']}" value="#{crudSolicitacao.selecionado.formatoAberto}"/>
+	                    
+						<hnvl:inputText id="formatoFechadoInput" label="#{msg['solicitacao.formato.fechado']}" value="#{crudSolicitacao.selecionado.formatoFechado}"/>
+						
+						<h:outputText value="#{msg['solicitacao.plastificacao']}"/>
+						<h:selectOneListbox id="plastificacaoSelect" size="1" value="#{crudSolicitacao.selecionado.plastificacao}" label="#{msg['solicitacao.plastificacao']}">
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudSolicitacao.plastificacoes}"/>
+						</h:selectOneListbox>
+						
+						<h:outputText value="#{msg['solicitacao.impressao']}"/>
+						<h:selectOneListbox id="impressaoSelect" size="1" value="#{crudSolicitacao.selecionado.impressao}" label="#{msg['solicitacao.impressao']}">
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudSolicitacao.impressoes}"/>
+						</h:selectOneListbox>
+						
+						<h:outputText value="#{msg['solicitacao.arte']}"/>
+						<h:selectOneListbox id="arteSelect" size="1" value="#{crudSolicitacao.selecionado.arte}" label="#{msg['solicitacao.arte']}">
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudSolicitacao.artes}"/>
+						</h:selectOneListbox>
+						
+						<h:outputText value="#{msg['solicitacao.prova']}"/>
+						<h:selectOneListbox id="provaSelect" size="1" value="#{crudSolicitacao.selecionado.prova}" label="#{msg['solicitacao.prova']}">
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudSolicitacao.provas}"/>
+						</h:selectOneListbox>
+						
+						<h:outputText value="#{msg['solicitacao.dobra']}"/>
+						<h:selectOneListbox id="dobraSelect" size="1" value="#{crudSolicitacao.selecionado.dobra}" label="#{msg['solicitacao.dobra']}">
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudSolicitacao.dobras}"/>
+						</h:selectOneListbox>
+						
+						<h:outputText value="#{msg['solicitacao.grampo']}"/>
+						<h:selectOneListbox id="grampoSelect" size="1" value="#{crudSolicitacao.selecionado.grampo}" label="#{msg['solicitacao.grampo']}">
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudSolicitacao.grampos}"/>
+						</h:selectOneListbox>
+						
+						<h:outputText value="#{msg['solicitacao.cola']}"/>
+						<h:selectOneListbox id="colaSelect" size="1" value="#{crudSolicitacao.selecionado.cola}" label="#{msg['solicitacao.cola']}">
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudSolicitacao.colas}"/>
+						</h:selectOneListbox>
+						
+						<h:outputText value="#{msg['solicitacao.corte']}"/>
+						<h:selectOneListbox id="corteSelect" size="1" value="#{crudSolicitacao.selecionado.corte}" label="#{msg['solicitacao.corte']}">
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudSolicitacao.cortes}"/>
+						</h:selectOneListbox>
+						
+						<h:outputText value="#{msg['solicitacao.verniz']}"/>
+						<h:selectOneListbox id="vernizSelect" size="1" value="#{crudSolicitacao.selecionado.verniz}" label="#{msg['solicitacao.verniz']}">
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudSolicitacao.vernizes}"/>
+						</h:selectOneListbox>
+						
+						<h:outputText value="#{msg['solicitacao.furo']}"/>
+						<h:selectOneListbox id="furoSelect" size="1" value="#{crudSolicitacao.selecionado.furo}" label="#{msg['solicitacao.furo']}">
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudSolicitacao.furos}"/>
+						</h:selectOneListbox>
+						
+						<h:outputText value="#{msg['solicitacao.pagamento']}"/>
+						<h:selectOneListbox id="pagamentoSelect" size="1" value="#{crudSolicitacao.selecionado.pagamento}" label="#{msg['solicitacao.pagamento']}">
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudSolicitacao.pagamentos}"/>
+						</h:selectOneListbox>
+						
+						<h:outputText value="#{msg['solicitacao.prazo']}"/>
+						<h:selectOneListbox id="prazoSelect" size="1" value="#{crudSolicitacao.selecionado.prazo}" label="#{msg['solicitacao.prazo']}">
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudSolicitacao.prazos}"/>
+						</h:selectOneListbox>
+						
+						<h:outputText value="#{msg['solicitacao.imposto']}"/>
+						<h:selectOneListbox id="impostoSelect" size="1" value="#{crudSolicitacao.selecionado.imposto}" label="#{msg['solicitacao.imposto']}">
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudSolicitacao.impostos}"/>
+						</h:selectOneListbox>
+						<f:subview id="comissaoLabelView" rendered="#{not empty crudSolicitacao.selecionado.agencia}">
+								<h:outputText value="#{msg['solicitacao.comissao']}"/>
+						</f:subview>
+						<f:subview id="comissaoDadosView" rendered="#{not empty crudSolicitacao.selecionado.agencia}">
+							<h:inputText id="bvInput" value="#{crudSolicitacao.bv}">
+								<f:convertNumber type="double" pattern="#0.0" maxFractionDigits="1" maxIntegerDigits="1"/>
+								<rich:jQuery id="maskBV" query="mask('9.9')" selector="#bvInput" timing="immediate"/>
+							</h:inputText>
+						</f:subview>
+						<hnvl:inputDate id="dataEntregaInput" label="#{msg['solicitacao.data.entrega']}" value="#{crudSolicitacao.selecionado.dataEntrega}"/>
+					</h:panelGrid>
+					<h:panelGrid columns="2" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none">
+						<h:outputText value="#{msg['solicitacao.observacao']}"/>
+						<h:inputTextarea id="observacaoInput" value="#{crudSolicitacao.selecionado.observacao}" />
+					</h:panelGrid>
+					<f:subview id="rotuloView" rendered="#{crudSolicitacao.servicoRotulo}">
+						<fieldset>
+							<legend>${msg['solicitacao.rotulo.title']}</legend>
+							<h:panelGrid columns="6" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none,rotulo,none,rotulo,none">
+								<hnvl:inputText id="baseRotuloInput" label="#{msg['solicitacao.rotulo.base']}" value="#{crudSolicitacao.selecionado.rotulo.base}" style="width: 200px;"/>
+								<hnvl:inputText id="alturaRotuloInput" label="#{msg['solicitacao.rotulo.altura']}" value="#{crudSolicitacao.selecionado.rotulo.altura}" style="width: 150px;"/>
+								<hnvl:inputText id="corInput" label="#{msg['solicitacao.rotulo.cor']}" value="#{crudSolicitacao.selecionado.rotulo.cor}" style="width: 150px;"/>
+							</h:panelGrid>
+						</fieldset>
+					</f:subview>
+					<f:subview id="encarteView" rendered="#{crudSolicitacao.servicoEncarte}">
+						<fieldset>
+							<legend>${msg['solicitacao.encarte.title']}</legend>
+							<h:panelGrid columns="4" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none,rotulo,none">
+								<hnvl:inputText id="corEncarteInput" label="#{msg['solicitacao.encarte.cor']}" value="#{crudSolicitacao.selecionado.encarte.cor}"/>
+								<h:outputLabel value="#{msg['solicitacao.encarte.quantidade']}"/>
+								<h:inputText id="quantidadeEncarteInput" value="#{crudSolicitacao.selecionado.encarte.quantidade}">
+									<rich:jQuery id="maskQuantidadeEncarte" query="numeric()" selector="#quantidadeEncarteInput" timing="immediate"/>
+								</h:inputText>
+							</h:panelGrid>
+						</fieldset>
+					</f:subview>
+					<f:subview id="livroView" rendered="#{crudSolicitacao.servicoLivro}">
+						<fieldset>
+							<legend>${msg['solicitacao.livro.title']}</legend>
+							<h:panelGrid columns="4" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none,rotulo,none">
+								<h:outputText value="#{msg['solicitacao.livro.capa']}"/>
+								<h:selectOneListbox id="capaLivroSelect" size="1" value="#{crudSolicitacao.selecionado.livro.capa}">
+							    	<f:selectItem itemValue="null" itemLabel="..."/>
+							    	<f:selectItems value="#{crudSolicitacao.capas}"/>
+								</h:selectOneListbox>
+								
+								<hnvl:inputText id="corLivroInput" label="#{msg['solicitacao.livro.cor']}" value="#{crudSolicitacao.selecionado.livro.capa}"/>
+								
+								<h:outputText value="#{msg['solicitacao.livro.papel']}"/>
+								<h:selectOneListbox id="papelLivroSelect" size="1" value="#{crudSolicitacao.selecionado.livro.papel}">
+							    	<f:selectItem itemValue="null" itemLabel="..."/>
+							    	<f:selectItems value="#{crudSolicitacao.papeis}"/>
+								</h:selectOneListbox>
+								
+								<h:outputText value="#{msg['solicitacao.livro.gramatura']}"/>
+								<h:selectOneListbox id="gramaturaLivroSelect" size="1" value="#{crudSolicitacao.selecionado.livro.gramatura}">
+							    	<f:selectItem itemValue="null" itemLabel="..."/>
+							    	<f:selectItems value="#{crudSolicitacao.gramaturas}"/>
+								</h:selectOneListbox>
+								
+								<h:outputText value="#{msg['solicitacao.livro.lombada']}"/>
+								<h:selectOneListbox id="lombadaLivroSelect" size="1" value="#{crudSolicitacao.selecionado.livro.lombada}">
+							    	<f:selectItem itemValue="null" itemLabel="..."/>
+							    	<f:selectItems value="#{crudSolicitacao.lombadas}"/>
+								</h:selectOneListbox>
+							</h:panelGrid>
+						</fieldset>
+					</f:subview>
+                <h:panelGrid columns="2" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none">
+                    <hnvl:outputText id="usuOutput" label="#{msg['commons.criadopor']}" value="#{crudSolicitacao.selecionado.usuarioCadastro.nome}"
+                            rendered="#{not empty crudSolicitacao.selecionado.id}"/>
+                    <hnvl:outputDate id="datOutput" label="#{msg['commons.criadoem']}" value="#{crudSolicitacao.selecionado.dataCadastro}"
+                            rendered="#{not empty crudSolicitacao.selecionado.id}"/>
+                </h:panelGrid>
+				</fieldset>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+</jsp:root>

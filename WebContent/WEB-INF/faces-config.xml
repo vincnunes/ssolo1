@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
+    version="1.2">
+
+
+    <!-- Spring VariableResolver for JSF -->
+
+    <application>
+        <!-- variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver-->
+        <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+        <resource-bundle>
+            <base-name>SystemMessages</base-name>
+            <var>msg</var>
+        </resource-bundle>
+        <locale-config>
+            <default-locale>pt_BR</default-locale>
+        </locale-config>
+        <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
+        <message-bundle>SystemMessages</message-bundle>
+    </application>
+
+    <converter>
+        <converter-for-class>com.hvnl.ssolo.model.Model</converter-for-class>
+        <converter-class>com.hvnl.ssolo.view.converters.SimpleEntityConverter</converter-class>
+    </converter>
+    
+    <converter>
+        <converter-id>converter.numeros</converter-id>
+        <converter-class>com.hvnl.ssolo.view.converters.OnlyNumbersConverter</converter-class>
+    </converter>
+    
+    <converter>
+        <converter-for-class>java.math.BigDecimal</converter-for-class>
+        <converter-class>com.hvnl.ssolo.view.converters.CurrencyConverter</converter-class>
+    </converter>
+    
+    <converter>
+        <converter-for-class>java.lang.Double</converter-for-class>
+        <converter-class>com.hvnl.ssolo.view.converters.DoubleConverter</converter-class>
+    </converter>
+
+	<converter>
+        <converter-for-class>java.lang.Enum</converter-for-class>
+        <converter-class>com.hvnl.ssolo.view.converters.EnumConverter</converter-class>
+    </converter>
+    
+    <lifecycle>
+        <phase-listener>com.hvnl.ssolo.view.listeners.PostRedirectGetListener</phase-listener>
+    </lifecycle>
+    
+	<lifecycle>
+		<phase-listener>com.hvnl.ssolo.view.listeners.AuthorizationListener</phase-listener>
+	</lifecycle>
+
+
+    
+    <!-- BEANS -->
+    <managed-bean>
+        <managed-bean-name>dataCorrente</managed-bean-name>
+        <managed-bean-class>java.util.Date</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>permissoesBean</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.PermissoesBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>permissoesFacade</property-name>
+            <value>#{defaultPermissoesFacade}</value>
+        </managed-property>
+    </managed-bean>
+
+	<managed-bean>
+        <managed-bean-name>crudAgenciaPublicitaria</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudAgenciaPublicitariaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudAgenciaPublicitariaFacade}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>cepOnLine</property-name>
+            <value>#{cepOnLine}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <managed-bean-name>crudArte</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudArteBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudArteFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudAtividade</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudAtividadeBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudAtividadeFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudBanco</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudBancoBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudBancoFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudCapa</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudCapaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudCapaFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudCidade</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudCidadeBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudCidadeFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudCliente</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudClienteBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudClienteFacade}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>cepOnLine</property-name>
+            <value>#{cepOnLine}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudCola</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudColaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudColaFacade}</value>
+        </managed-property>
+    </managed-bean>
+
+	<managed-bean>
+        <managed-bean-name>crudConta</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudContaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudContaFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudContato</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudContatoBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudContatoFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudCorte</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudCorteBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudCorteFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudDestino</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudDestinoBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudDestinoFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudDobra</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudDobraBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudDobraFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudEmpresa</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudEmpresaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudEmpresaFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudEndereco</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudEnderecoBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudEnderecoFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudEstado</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudEstadoBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudEstadoFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudFrete</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudFreteBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudFreteFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudFuro</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudFuroBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudFuroFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudGramatura</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudGramaturaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudGramaturaFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudGrampo</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudGrampoBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudGrampoFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudImposto</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudImpostoBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudImpostoFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudImpressao</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudImpressaoBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudImpressaoFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudLombada</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudLombadaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudLombadaFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudOrcamento</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudOrcamentoBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudOrcamentoFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudPagamento</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudPagamentoBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudPagamentoFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudPagina</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudPaginaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudPaginaFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudPapel</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudPapelBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudPapelFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+     <managed-bean>
+        <managed-bean-name>crudPerfil</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudPerfilBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudPerfilFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudPlastificacao</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudPlastificacaoBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudPlastificacaoFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudPrazo</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudPrazoBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudPrazoFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudProva</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudProvaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudProvaFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudServico</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudServicoBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudServicoFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudSolicitacao</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudSolicitacaoBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudSolicitacaoFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudStatus</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudStatusBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudStatusFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudTransportadora</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudTransportadoraBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudTransportadoraFacade}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>cepOnLine</property-name>
+            <value>#{cepOnLine}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudUsuario</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudUsuarioBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudUsuarioFacade}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>cepOnLine</property-name>
+            <value>#{cepOnLine}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>crudVerniz</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.CrudVernizBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudVernizFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>agenciaBean</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.AgenciaListBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>loginBean</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.LoginBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>loginFacade</property-name>
+            <value>#{loginFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>alterarSituacaoClienteBean</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.AlterarSituacaoClienteBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudClienteFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>alterarSituacaoAgenciaBean</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.AlterarSituacaoAgenciaBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>crudFacade</property-name>
+            <value>#{crudAgenciaPublicitariaFacade}</value>
+        </managed-property>
+    </managed-bean>
+    
+    
+    <managed-bean>
+        <managed-bean-name>indexBean</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.IndexBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>indexFacade</property-name>
+            <value>#{indexFacade}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>permissoes</property-name>
+            <value>#{permissoesBean}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>pegaUsuario</managed-bean-name>
+        <managed-bean-class>com.hvnl.ssolo.view.PegaUsuarioBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>facade</property-name>
+            <value>#{pegaUsuarioFacade}</value>
+        </managed-property>
+    </managed-bean>
+</faces-config>

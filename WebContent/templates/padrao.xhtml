@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:hnvl="http://www.hnvl.com/facelets"
+    xml:lang="pt" lang="pt-br" dir="ltr">
+<f:view>
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>${msg['entidade.name']}</title>
+    <script src="#{facesContext.externalContext.requestContextPath}/scripts/jquery/lib/jquery-1.4.2.js"></script>
+    <script src="#{facesContext.externalContext.requestContextPath}/scripts/jquery/plugin/jquery.alphanumeric.pack.js"></script>
+	<script src="#{facesContext.externalContext.requestContextPath}/scripts/jquery-validate/jquery.validate.js"></script>
+	<script src="#{facesContext.externalContext.requestContextPath}/scripts/jquery-validate/jquery.maskedinput.js"></script>
+	<script src="#{facesContext.externalContext.requestContextPath}/scripts/jquery-validate/jquery.maskMoney.0.2.js"></script>
+	<script src="#{facesContext.externalContext.requestContextPath}/scripts/jquery/plugin/jquery.price-format-1.3.js"></script>
+	<script type="text/javascript">
+	  jQuery.noConflict();
+	</script>
+
+    <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/scripts/checkbox.js"></script>
+    <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/scripts/focus.js"></script>
+    <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/scripts/sorttable.js"></script>
+    <link href="#{facesContext.externalContext.requestContextPath}/styles/geral.css" rel="stylesheet" type="text/css" />
+    <!--[if IE 7]>
+    <link href="#{facesContext.externalContext.requestContextPath}/styles/ie7.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <ui:insert name="head" />
+    
+</head>
+<body>
+	
+    <!-- 1. Borda Topo -->
+    <div id="borda-topo" class="cab_verde">
+    	<div>
+        	<div>
+            	<span class="icone icn-ssolo" ></span>
+                <span class="titulo">#{msg['application.name']}</span>
+            </div>
+        </div>
+    <!-- FIM - 1. Borda Topo --></div> 
+    
+    <!-- 2. Caixa Cabeçalho -->
+    <div id="caixa-cabecalho">
+    	
+		<!-- 2.1 Links -->
+        <div id="modulo-estatus">
+            <span class="usuario">#{pegaUsuario.usuario.nome}</span>
+            <span class="link-sair"><a href="/ssolo2/logout.jsp">Sair</a></span>
+        </div> <!-- FIM - 2.1 Links -->
+        
+        <!-- 2.2 Menu -->
+        <div id="modulo-menu">
+        	<f:subview id="menuView" rendered="#{menuView == null or menuView == 'true'}">
+		        <hnvl:menu/>
+        	</f:subview>
+        </div>
+        <!-- FIM - 2.2 Menu -->
+        <div class="limpa"></div>
+        
+    </div> <!-- FIM - 2. Caixa Cabeçalho -->
+    
+    <a4j:region>
+    
+    <ui:insert name="popup" />
+    
+    
+    <!-- 3. Caixa Conteúdo -->
+    <div id="caixa-conteudo">
+    	<div class="borda">
+        	<div class="padding">
+                <h:form id="formulario">
+		            	<!-- 3.1.1 Caixa de Ferramentas -->
+		            	<div id="caixa-ferramentas">
+		                	
+		                    <!-- 3.1.1.1 Borda Topo -->
+		                    <div class="t">
+		                    	<div class="t">
+		                        	<div class="t">
+		                            </div>
+		                        </div>
+		                    </div><!-- FIM - 3.1.1.1 Borda Topo -->
+		                    
+		                    <!-- 3.1.1.2 Caixa de Botões -->
+		                    <div class="m">
+		                        <div id="barra-ferramentas" class="barra-ferramentas">
+                                    <ui:insert name="toolbar" />
+                                </div>
+		                        
+		                        <div class="cab icone-48-padrao">
+									<ui:insert name="title" />
+		                            <small><small>
+										[<ui:insert name="operacao" />]
+		                            </small></small>
+		                            
+		                            <a4j:status>
+	                                    <f:facet name="start">
+                                            Aguarde, processando ...
+	                                        <img src="/ssolo2/imagens/carregando.gif" style="vertical-align: middle;"/>
+	                                    </f:facet>
+	                                </a4j:status>
+		                        </div>
+		                    	
+		                    	
+		                    	
+		                        <div class="limpa"></div>
+		                    </div><!-- FIM - 3.1.1.2 Caixa de Botões -->
+		                    
+		                    <!-- 3.1.1.3 Borda Baixa -->
+		                    <div class="b">
+		                    	<div class="b">
+		                        	<div class="b">
+		                            </div>
+		                        </div>
+		                    </div><!-- FIM - 3.1.1.2 Borda Baixa -->
+		                    
+		                </div><!-- FIM - 3.1.1 Caixa de Ferramentas -->
+		
+		                <h:messages infoClass="mensagem-informa" errorClass="mensagem-erro" warnClass="mensagem-alerta"/>
+		                
+		                <!-- 3.1.2 Caixa de Elementos -->
+		                <div id="caixa-elementos">
+		                	
+		                    <!-- 3.1.2.1 - Borda Topo -->
+		                    <div class="t">
+						 		<div class="t">
+									<div class="t"></div>
+				 				</div>
+		 	      			</div><!-- FIM - 3.1.2.1 - Borda Topo -->
+		
+							<div class="m">
+		                        <ui:insert name="body" />
+		                    </div>
+		                    
+		                    <!-- 3.1.2.3 - Borda Baixa -->
+		                    <div class="b">
+		                    	<div class="b">
+		                        	<div class="b"></div>
+		                        </div>
+		                    </div><!-- FIM - 3.1.2.3 - Borda Baixa -->
+		                                        
+		                </div>
+		            
+                </h:form>
+            </div>
+        </div>    
+    </div><!-- FIM - 3. Caixa Conteúdo -->
+    
+    </a4j:region>
+    
+    
+    <div id="borda-baixa">
+    	<div><div></div></div>
+    </div>
+    
+    <div id="rodape">
+    	<p class="direitos-autorais">
+        	NewGraf - Gráfica e Editora LTDA. - Versão <hnvl:outputDate id="app-ver-ano" pattern="yyyy"/><br />
+            Desenvolvido e mantido pela NUNES LIMA - Sistemas de Informação
+        </p>
+    </div>
+    
+    <script language="javascript">
+    	jQuery().ready(function() {
+    		
+    	}
+        var componentes = document.getElementsByTagName("input");
+
+        for (var i = 0; i &lt; componentes.length; i++) {
+            var input = componentes[i];
+			if (input.type &amp;&amp; input.type == "text") {
+			    input.focus();
+			    break;
+			}
+		}
+    </script>
+    
+</body>
+</f:view>
+</html>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:hnvl="http://www.hnvl.com/facelets">
+
+    <f:view>
+        <ui:composition template="/templates/padrao.xhtml">
+        
+        <ui:define name="title">${msg['arte.title']}</ui:define>
+        <ui:define name="operacao">${msg['commons.listar']}</ui:define>
+        
+        <ui:define name="toolbar">
+            <hnvl:toolbar formulario="#{crudArte}" novo="true" filtrar="true"/>
+        </ui:define>
+                    
+        <ui:define name="body"> 
+	        <div style="width: 100%"> 
+		        <div id="filtros">
+		            <fieldset>
+		                <legend>Filtros</legend>
+		                <h:panelGrid columns="2" cellspacing="5" styleClass="tab-edita" columnClasses="rotulo,none">
+	                        <hnvl:inputText id="nomeInput" label="#{msg['commons.nome']}"      value="#{crudArte.selecionado.nome}"/>
+	                        <hnvl:inputText id="descInput" label="#{msg['commons.descricao']}" value="#{crudArte.selecionado.descricao}"/>
+		                </h:panelGrid>
+		            </fieldset>
+		        </div>
+	        </div> 
+	        
+	        <div style="width: 100%">
+		        <h:dataTable value="#{crudArte.selecionados}" var="arte" styleClass="lista-admin"
+		              rendered="#{!empty crudArte.selecionados}" rowClasses="odd, zebra" id="orgaos"
+		              columnClasses="col-centralizado,col-esquerdo,col-esquerdo">
+		            <h:column>
+		                <f:facet name="header">
+		                    <h:outputText value="#{msg['commons.id']}" />
+		                </f:facet>
+		                <h:commandLink action="#{crudArte.editar}" >
+		                    <h:outputText value="#{arte.id}" />
+		                    <f:setPropertyActionListener target="#{crudArte.selecionado}" value="#{arte}" />
+		                </h:commandLink>
+		            </h:column>
+		
+		            <h:column>
+		                <f:facet name="header">
+		                    <h:outputText value="#{msg['commons.nome']}"/>
+		                </f:facet>
+		                <h:outputText value="#{arte.nome}"/>
+		            </h:column>
+		            
+		            <h:column>
+		                <f:facet name="header">
+		                    <h:outputText value="#{msg['commons.descricao']}"/>
+		                </f:facet>
+		                <h:outputText value="#{arte.descricao}"/>
+    	            </h:column>
+    	            
+		            <h:column>
+		                <f:facet name="header">
+		                   <h:outputText value="#{msg['commons.alterar']}" styleClass="txtesq" /> 
+		                </f:facet>
+		                <h:commandLink action="#{crudArte.editar}">
+		                    <img src="/auth/imagens/table-edit.png" alt="#{msg['commons.alterar']}" title="#{msg['commons.alterar']}"/>
+		                    <f:setPropertyActionListener target="#{crudArte.selecionado}" value="#{arte}" />
+		                </h:commandLink>
+		            </h:column>
+		                     
+		        </h:dataTable>
+		        
+	        </div>
+        </ui:define>
+        
+        </ui:composition>
+    </f:view>
+</jsp:root>

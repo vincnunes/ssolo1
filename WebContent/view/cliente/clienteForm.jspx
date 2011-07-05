@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root version="2.0" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:cjsp="http://java.sun.com/jsp/jstl/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"    
+    xmlns:hnvl="http://www.hnvl.com/facelets">
+
+    <f:view>
+        <ui:composition template="/templates/padrao.xhtml">
+            <ui:define name="title">${msg['cliente.title']}</ui:define>
+            <ui:define name="operacao">${msg[crudCliente.selecionado.id > 0 ? 'commons.alterar' : 'commons.criar']}</ui:define>
+            
+            <ui:define name="toolbar">
+                <hnvl:toolbar formulario="#{crudCliente}" consultar="true" novo="true" salvar="true" cancelar="true"/>
+            </ui:define>
+            
+            <ui:define name="body">
+				<fieldset>
+					<legend>${msg['cliente.dados']}</legend>
+	                <h:panelGrid columns="4" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none,rotulo,none">
+	                    
+                        <hnvl:outputText id="idOutput" label="#{msg['commons.id']}" value="#{crudCliente.selecionado.id}"
+	                            rendered="#{crudCliente.selecionado.id > 0}"/>
+	                    
+	                    <h:outputText value="#{msg['dadosEmpresa.razao']}"/>
+	                    <hnvl:inputText id="razaoInput" value="#{crudCliente.selecionado.nome}"/>
+	                    
+	                    <h:outputText value="#{msg['cliente.vendedor']}"/>
+	                    <f:subview id="vendedorView" rendered="#{!crudCliente.administrador}">
+	                    	<h:outputText value="#{crudCliente.vendedor.nome}"/>
+	                    </f:subview>
+	                    <f:subview id="adiministadorView" rendered="#{crudCliente.administrador}">
+		                    <h:selectOneListbox id="vendedorSelect" size="1" value="#{crudCliente.selecionado.vendedor}" >
+		                    	<f:selectItem itemValue="null" itemLabel="..."/>
+							    <f:selectItems value="#{crudCliente.vendedores}"/>
+							    <a4j:support event="onchange" reRender="formulario"/>
+							</h:selectOneListbox>
+						</f:subview>
+	                    
+	                    <h:outputText value="#{msg['dadosEmpresa.fantasia']}"/>
+	                    <hnvl:inputText id="fantasiaInput" value="#{crudCliente.selecionado.dados.nomeFantasia}"/>
+	                    
+	                    <h:outputText value="#{msg['cliente.pessoa']}"/>
+	                    <h:selectOneRadio id="pessoaInput" value="#{crudCliente.selecionado.pessoa}">
+	                    	<f:selectItems value="#{crudCliente.tiposPessoa }"/>
+	                    	<a4j:support event="onclick" reRender="formulario"/>
+	                    </h:selectOneRadio>
+	                    
+	                    <f:subview id="cpfViewLabel" rendered="#{crudCliente.pessoaFisica}">
+	                    	<h:outputLabel value="#{msg['dadosEmpresa.cpfCnpj']}"/>
+	                    </f:subview>
+						<f:subview id="cpfView" rendered="#{crudCliente.pessoaFisica}">
+		                    <h:inputText id="cpfInput" value="#{crudCliente.selecionado.dados.cpfCnpj}" maxlength="14">
+		                    	<rich:jQuery id="maskCpfInput" query="mask('999.999.999-99')" selector="#cpfInput" timing="onload" />
+		                    	<rich:jQuery id="focoCPF" query="focus()" selector="#cpfInput" timing="immediate"/>
+		                    </h:inputText>
+	                    </f:subview>
+	                    <f:subview id="cnpjViewLable" rendered="#{crudCliente.pessoaJuridica}">
+							<h:outputLabel value="#{msg['dadosEmpresa.cpfCnpj']}"/>
+	                    </f:subview>
+						<f:subview id="cnpjView" rendered="#{crudCliente.pessoaJuridica}">
+		                    <h:inputText id="cnpjInput" value="#{crudCliente.selecionado.dados.cpfCnpj}" maxlength="18">
+		                    	<rich:jQuery id="maskCnpjInput" query="mask('99.999.999/9999-99')" selector="#cnpjInput" timing="onload" />
+		                    	<rich:jQuery id="focoCNPJ" query="focus()" selector="#cnpjInput" timing="immediate"/>
+		                    </h:inputText>
+						</f:subview>
+	                    
+	                    <h:outputText value="#{msg['dadosEmpresa.inscricaoMunicipal']}"/>
+	                    <h:inputText id="inscricaoMunicipalInput" value="#{crudCliente.selecionado.dados.inscricaoMunicipal}">
+	                    	<rich:jQuery id="maskInscricaoMunicipalInput" query="numeric()" selector="#inscricaoMunicipalInput" timing="onload" />
+	                    </h:inputText>
+	                    
+	                    <h:outputText value="#{msg['cliente.atividade']}"/>
+	                    <h:selectOneListbox id="atividadeSelect" size="1" value="#{crudCliente.selecionado.atividade}">
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudCliente.atividades}"/>
+						</h:selectOneListbox>
+						
+						<h:outputText value="#{msg['dadosEmpresa.email']}"/>
+	                    <hnvl:inputText id="emailInput" value="#{crudCliente.selecionado.dados.email}"/>
+	                    
+	                    <h:outputText value="#{msg['dadosEmpresa.telefone']}"/>
+	                    <h:inputText id="telefoneInput" value="#{crudCliente.selecionado.dados.telefone}" >
+	                    	<rich:jQuery id="maskTelefone" query="mask('(99)9999-9999')" selector="#telefoneInput" timing="onload"/>
+	                    </h:inputText>
+	                    
+	                    <h:outputText value="#{msg['dadosEmpresa.fax']}"/>
+	                    <h:inputText id="faxInput" value="#{crudCliente.selecionado.dados.fax}" >
+	                    	<rich:jQuery id="maskFax" query="mask('(99)9999-9999')" selector="#faxInput" timing="onload"/>
+	                    </h:inputText>
+	                    
+	                    <h:outputText value="#{msg['dadosEmpresa.celular']}"/>
+	                    <h:inputText id="celularInput" value="#{crudCliente.selecionado.dados.celular}">
+	                    	<rich:jQuery id="maskCelular" query="mask('(99)9999-9999')" selector="#celularInput" timing="onload"/>
+	                    </h:inputText>
+					</h:panelGrid>
+				</fieldset>
+				<fieldset>
+					<legend>${msg['cliente.endereco']}</legend>
+					<h:panelGrid columns="4" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none,rotulo,none">
+						<h:outputText value="#{msg['endereco.logradouro']}"/>
+						<hnvl:inputText id="logradouroInput" value="#{crudCliente.selecionado.dados.endereco.logradouro}"/>
+						
+						<h:outputText value="#{msg['endereco.numero']}"/>
+						<h:inputText id="numeroInput" value="#{crudCliente.selecionado.dados.endereco.numero}">
+							<rich:jQuery id="maskNumero" query="numeric()" selector="#numeroInput" timing="onload"/>
+						</h:inputText>
+						
+						<h:outputText value="#{msg['endereco.complemento']}"/>
+						<hnvl:inputText id="complementoInput" value="#{crudCliente.selecionado.dados.endereco.complemento}"/>
+						
+						<h:outputText value="#{msg['endereco.bairro']}"/>
+						<hnvl:inputText id="bairroInput" value="#{crudCliente.selecionado.dados.endereco.bairro}"/>
+						
+						<h:outputText value="#{msg['endereco.estado']}"/>
+						<h:selectOneListbox id="estadoSelect" size="1" value="#{crudCliente.estado}" >
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudCliente.estados}"/>
+						    <a4j:support event="onchange" reRender="formulario" />
+						</h:selectOneListbox>
+						
+						<h:outputText value="#{msg['endereco.cidade']}"/>
+						<h:selectOneListbox id="cidadeSelect" size="1" value="#{crudCliente.selecionado.dados.endereco.cidade}" >
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudCliente.cidades}"/>
+						</h:selectOneListbox>
+						
+						<h:outputText value="#{msg['endereco.cep']}"/>
+						<h:inputText id="cepInput" value="#{crudCliente.selecionado.dados.endereco.cep}">
+							<rich:jQuery id="maskCep" query="mask('99999-999')" selector="#cepInput" timing="onload"/>
+						</h:inputText>
+						<a4j:commandButton action="#{crudCliente.buscarEndereco }" value="Pesquisar CEP" reRender="formulario">
+							<rich:jQuery id="focoNumero" query="focus()" selector="#numeroInput" timing="immediate"/>
+						</a4j:commandButton>
+	                    
+	                    <hnvl:outputText id="usuOutput" label="#{msg['commons.criadopor']}" value="#{crudCliente.selecionado.usuarioCadastro.nome}"
+	                            rendered="#{not empty crudCliente.selecionado.id}"/>
+	                    <hnvl:outputDate id="datOutput" label="#{msg['commons.criadoem']}" value="#{crudCliente.selecionado.dataCadastro}"
+	                            rendered="#{not empty crudCliente.selecionado.id}"/>
+	                </h:panelGrid>
+	            </fieldset>
+				<fieldset>
+					<legend>${msg['commons.informacoesAdicionais']}</legend>
+					<h:panelGrid columns="6" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none,rotulo,none,rotulo,none">
+						<h:outputText value="#{msg['cliente.referencia']}"/>
+						<hnvl:inputText id="referenciaInput" value="#{crudCliente.selecionado.referencia}" style="width: 80px;"/>
+						<h:outputText value="#{msg['cliente.transportadora']}"/>
+						<h:selectOneListbox id="transportadoraSelect" size="1" value="#{crudCliente.selecionado.transportadora}">
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudCliente.transportadoras}"/>
+						</h:selectOneListbox>
+						<h:outputText value="#{msg['cliente.distancia']}"/>
+						<hnvl:inputText id="distanciaInput" value="#{crudCliente.selecionado.distancia}" style="width: 50px;"/>
+					</h:panelGrid>
+				</fieldset>
+				<fieldset>
+					<h:panelGrid columns="2" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none">
+						<h:outputText value="#{msg['cliente.observacao']}"/>
+						<h:inputTextarea id="observacaoTextArea" value="#{crudCliente.selecionado.observacao}" styleClass="observacao"/>
+					</h:panelGrid>
+				</fieldset>
+				<fieldset>
+					<legend>${msg['cliente.retencoes']}</legend>	
+					<h:panelGrid columns="6" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none,rotulo,none,rotulo,none">
+						<h:outputText value="#{msg['cliente.reter.iss']}"/>
+						<h:selectBooleanCheckbox id="reterIssCheckBox" value="#{crudCliente.selecionado.reterIss}"/>
+						<h:outputText value="#{msg['cliente.reter.pis']}"/>
+						<h:selectBooleanCheckbox id="reterPisCheckBox" value="#{crudCliente.selecionado.reterPis}"/>
+						<h:outputText value="#{msg['cliente.reter.cofins']}"/>
+						<h:selectBooleanCheckbox id="reterCofinsCheckBox" value="#{crudCliente.selecionado.reterCofins}"/>
+						<h:outputText value="#{msg['cliente.reter.cssl']}"/>
+						<h:selectBooleanCheckbox id="reterCsslCheckBox" value="#{crudCliente.selecionado.reterCssl}"/>
+						<h:outputText value="#{msg['cliente.reter.icms']}"/>
+						<h:selectBooleanCheckbox id="reterIcmsCheckBox" value="#{crudCliente.selecionado.reterIcms}"/>
+						<h:outputText value="#{msg['cliente.reter.impostoRenda']}"/>
+						<h:selectBooleanCheckbox id="reterIrCheckBox" value="#{crudCliente.selecionado.reterIr}"/>
+						<h:outputText value="#{msg['cliente.unitaria']}"/>
+						<h:selectBooleanCheckbox id="reterUnitariaCheckBox" value="#{crudCliente.selecionado.unitaria}"/>
+					</h:panelGrid>
+				</fieldset>
+                <fieldset>
+					<legend>${msg['contato.title']}</legend>
+					<h:panelGrid columns="6" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none,rotulo,none,rotulo,none">
+						<h:outputText value="#{msg['cliente.contato.compras']}"/>
+						<hnvl:inputText id="contatoComprasInput" value="#{crudCliente.selecionado.contatoCompras}" style="width: 80px;"/>
+						<h:outputText value="#{msg['cliente.contato.financeiro']}"/>
+						<hnvl:inputText id="contatoFinanceiroInput" value="#{crudCliente.selecionado.contatoFinanceiro}" style="width: 80px;"/>
+						<h:outputText value="#{msg['cliente.contato.diretor']}"/>
+						<hnvl:inputText id="diretorInput" value="#{crudCliente.selecionado.contatoCompras}" style="width: 80px;"/>
+					</h:panelGrid>
+                    <rich:dataGrid columns="1" value="#{crudCliente.selecionado.dados.contatos}" var="ct"
+                            rendered="#{not empty crudCliente.selecionado.dados.contatos}">
+                        <rich:panel>
+                            <h:panelGrid columns="4" columnClasses="rotulo-small,none,rotulo-small,none">
+                                <hnvl:inputText id="nomeContatoInput" label="#{msg['commons.nome']}" value="#{ct.nome}" />
+                                <h:outputText value="#{msg['contato.telefone']}"/>
+                                <h:inputText id="telefoneContatoInput" label="" value="#{ct.telefone}" style="width: 70px;" >
+                                	<rich:jQuery id="maskTelefoneContato" query="mask('(99)9999-9999')" selector="#telefoneContatoInput" timing="immediate"/>
+                                </h:inputText>
+                                <hnvl:inputText id="emailInput" label="#{msg['contato.email']}" value="#{ct.email}"/>
+                                <h:outputText value="#{msg['contato.fax']}"/>
+                                <h:inputText id="faxContatoInput" value="#{ct.fax}" style="width: 70px;" >
+                                	<rich:jQuery id="maskFaxContato" query="mask('(99)9999-9999')" selector="#faxContatoInput" timing="immediate"/>
+                                </h:inputText>
+                                <hnvl:inputText id="cargoInput" label="#{msg['contato.cargo']}" value="#{ct.cargo}"/>
+                                <h:outputLabel value="#{msg['contato.celular']}"/>
+                                <h:inputText id="celularContatoInput" value="#{ct.celular}" style="width: 70px;" >
+                                	<rich:jQuery id="maskCelularContato" query="mask('(99)9999-9999')" selector="#celularContatoInput" timing="immediate"/>
+                                </h:inputText>
+                                <h:outputText value="#{msg['contato.aniversario']}"/>
+                                <h:inputText id="aniversarioInput" value="#{ct.aniversario}" style="width: 70px;">
+                                	<rich:jQuery id="maskAniversario" query="mask('99/99/9999')" selector="#aniversarioInput" timing="immediate"/>
+                                	<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+                                </h:inputText>
+                                <h:column>
+                                    <a4j:commandButton value="X" reRender="formulario">
+                                        <f:setPropertyActionListener value="#{ct}" target="#{crudCliente.excluirContato}" />
+                                    </a4j:commandButton>
+                                </h:column>
+                            </h:panelGrid>
+                        </rich:panel>
+                    </rich:dataGrid>
+                    <a4j:commandButton value="#{msg['commons.adicionar'] }" 
+                       	action="#{crudCliente.adicionarContato}" reRender="formulario"/>
+				</fieldset>
+                
+                <fieldset>
+                    <legend>${msg['cliente.associados']}</legend>
+                    <h:panelGrid columns="3" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none">
+                        <h:outputLabel value="#{msg['cliente.agencia.associada']}:"/>
+                        <h:selectOneListbox size="1" value="#{crudCliente.agencia}">
+                            <f:selectItem itemValue="null" itemLabel="..."/>
+                            <f:selectItems value="#{crudCliente.agencias }"/>
+                            <a4j:support event="onchange" reRender="formulario"/>
+                        </h:selectOneListbox>
+                    </h:panelGrid>
+                    <h:panelGrid columns="3" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none">
+                        <h:outputLabel value="#{msg['cliente.associado']}:"/>
+                        <h:selectOneListbox size="1" value="#{crudCliente.associado }">
+                            <f:selectItem itemValue="null" itemLabel="..."/>
+                            <f:selectItems value="#{crudCliente.associados }"/>
+                        </h:selectOneListbox>
+                        <a4j:commandButton value="#{msg['commons.adicionar'] }" reRender="formulario"/>
+                    </h:panelGrid>
+                    <h:dataTable value="#{crudCliente.selecionado.associados}" var="associado" rendered="#{not empty crudCliente.selecionado.associados}">
+                        <h:column>
+                            <f:facet name="header">${msg['commons.nome'] }</f:facet>
+                            <h:outputText value="#{associado.nome }" style="width: 70px;"/>
+                        </h:column>
+                        <h:column>
+                            <a4j:commandButton value="X" reRender="formulario">
+                                <f:setPropertyActionListener value="#{associado}" target="#{crudCliente.excluirAssociado}" />
+                            </a4j:commandButton>
+                        </h:column>
+                    </h:dataTable>
+                </fieldset>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+</jsp:root>

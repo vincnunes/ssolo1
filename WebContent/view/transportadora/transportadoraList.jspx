@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:hnvl="http://www.hnvl.com/facelets">
+
+    <f:view>
+        <ui:composition template="/templates/padrao.xhtml">
+        
+        <ui:define name="title">${msg['transportadora.title']}</ui:define>
+        <ui:define name="operacao">${msg['commons.listar']}</ui:define>
+        
+        <ui:define name="toolbar">
+            <hnvl:toolbar formulario="#{crudTransportadora}" novo="true" filtrar="true" cancelar="true"/>
+        </ui:define>
+
+        <ui:define name="body">
+        	<div style="width: 100%"> 
+                <div id="filtros">
+                    <fieldset>
+                        <legend>${msg['commons.filtros']}</legend>
+                        <h:panelGrid columns="2" cellspacing="5" styleClass="tab-edita" columnClasses="rotulo,none">
+                            <hnvl:inputText id="nomeInput" label="#{msg['commons.nome']}" value="#{crudTransportadora.selecionado.nome}"/>
+                            <hnvl:inputText id="cpfCnpjInput" label="#{msg['dadosEmpresa.cpfCnpj']}" value="#{crudTransportadora.selecionado.dados.cpfCnpj}"/>
+                        </h:panelGrid>
+                    </fieldset>
+                </div>
+            </div>
+             
+	        <div style="width: 100%">
+                    <h:dataTable value="#{crudTransportadora.selecionados}" var="transportadora" styleClass="lista-admin"
+                          rendered="#{!empty crudTransportadora.selecionados}" rowClasses="odd, zebra" id="orgaos"
+                          columnClasses="col-centralizado,col-esquerdo,col-esquerdo">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['commons.id']}" />
+                            </f:facet>
+                            <a4j:commandLink reRender="formulario">
+                                <h:outputText value="#{transportadora.id}" />
+                                <f:setPropertyActionListener target="#{crudTransportadora.selecionado}" value="#{transportadora}" />
+                            </a4j:commandLink>
+                        </h:column>
+            
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['commons.nome']}"/>
+                            </f:facet>
+                            <h:outputText value="#{transportadora.nome}"/>
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['dadosEmpresa.cpfCnpj']}"/>
+                            </f:facet>
+                            <h:outputText value="#{transportadora.dados.cpfCnpj}"/>
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['transportadora.observacao']}"/>
+                            </f:facet>
+                            <h:outputText value="#{transportadora.observacao}"/>
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">
+                               <h:outputText value="#{msg['commons.alterar']}" styleClass="txtesq" /> 
+                            </f:facet>
+                            <a4j:commandLink reRender="formulario">
+                                <img src="/auth/imagens/table-edit.png" alt="#{msg['commons.alterar']}" title="#{msg['commons.alterar']}"/>
+                                <f:setPropertyActionListener target="#{crudTransportadora.selecionado}" value="#{transportadora}" />
+                            </a4j:commandLink>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+        </ui:define>
+        
+        </ui:composition>
+    </f:view>
+</jsp:root>

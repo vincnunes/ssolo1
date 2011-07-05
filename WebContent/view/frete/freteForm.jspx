@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root version="2.0" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:cjsp="http://java.sun.com/jsp/jstl/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"    
+    xmlns:hnvl="http://www.hnvl.com/facelets">
+
+    <f:view>
+        <ui:composition template="/templates/padrao.xhtml">
+            <ui:define name="title">${msg['frete.title']}</ui:define>
+            <ui:define name="operacao">${msg[crudFrete.selecionado.id > 0 ? 'commons.alterar' : 'commons.criar']}</ui:define>
+            
+            <ui:define name="toolbar">
+                <hnvl:toolbar formulario="#{crudFrete}" novo="true" salvar="true" cancelar="true"/>
+            </ui:define>
+            
+            <ui:define name="body">
+                
+                <h:panelGrid columns="2" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none">
+                    <hnvl:outputText id="idOutput" label="#{msg['commons.id']}" value="#{crudFrete.selecionado.id}"
+                            rendered="#{crudFrete.selecionado.id > 0}"/>
+                    
+                    <hnvl:inputText id="nomeInput" label="#{msg['commons.nome']}" value="#{crudFrete.selecionado.nome}"/>
+                    <hnvl:inputText id="descInput" label="#{msg['commons.descricao']}" value="#{crudFrete.selecionado.descricao}"/>
+                    
+                    <hnvl:outputText id="usuOutput" label="#{msg['commons.criadopor']}" value="#{crudFrete.selecionado.usuarioCadastrado.nome}"
+                            rendered="#{not empty crudFrete.selecionado.id}"/>
+                    <hnvl:outputDate id="datOutput" label="#{msg['commons.criadoem']}" value="#{crudFrete.selecionado.dataCadastro}"
+                            rendered="#{not empty crudFrete.selecionado.id}"/>
+                    
+                </h:panelGrid>
+                
+                <div style="width: 100%">
+                    <h:dataTable value="#{crudFrete.selecionados}" var="frete" styleClass="lista-admin"
+                          rendered="#{!empty crudFrete.selecionados}" rowClasses="odd, zebra" id="orgaos"
+                          columnClasses="col-centralizado,col-esquerdo,col-esquerdo">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['commons.id']}" />
+                            </f:facet>
+                            <a4j:commandLink reRender="formulario">
+                                <h:outputText value="#{frete.id}" />
+                                <f:setPropertyActionListener target="#{crudFrete.selecionado}" value="#{frete}" />
+                            </a4j:commandLink>
+                        </h:column>
+            
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['commons.nome']}"/>
+                            </f:facet>
+                            <h:outputText value="#{frete.nome}"/>
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['commons.descricao']}"/>
+                            </f:facet>
+                            <h:outputText value="#{frete.descricao}"/>
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">
+                               <h:outputText value="#{msg['commons.alterar']}" styleClass="txtesq" /> 
+                            </f:facet>
+                            <a4j:commandLink reRender="formulario">
+                                <img src="/auth/imagens/table-edit.png" alt="#{msg['commons.alterar']}" title="#{msg['commons.alterar']}"/>
+                                <f:setPropertyActionListener target="#{crudFrete.selecionado}" value="#{frete}" />
+                            </a4j:commandLink>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+                
+            </ui:define>
+        </ui:composition>
+    </f:view>
+</jsp:root>

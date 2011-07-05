@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root version="2.0" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:cjsp="http://java.sun.com/jsp/jstl/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"    
+    xmlns:hnvl="http://www.hnvl.com/facelets">
+
+    <f:view>
+        <ui:composition template="/templates/padrao.xhtml">
+            <ui:define name="title">${msg['agencia.situacao.title']}</ui:define>
+            <ui:define name="operacao">${msg['commons.alterar']}</ui:define>
+            
+            <ui:define name="toolbar">
+                <hnvl:toolbar formulario="#{alterarSituacaoAgenciaBean}" consultar="true" salvar="true" cancelar="true"/>
+            </ui:define>
+            
+            <ui:define name="body">
+                <fieldset>
+					<legend>${msg['agencia.dados']}</legend>
+	                <h:panelGrid columns="4" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none,rotulo,none">
+                        <hnvl:outputText id="idOutput" label="#{msg['commons.id']}" value="#{alterarSituacaoAgenciaBean.selecionado.id}"/>
+                        <hnvl:outputText id="razaoOutput" label="#{msg['dadosEmpresa.razao']}" value="#{crudAgenciaPublicitaria.selecionado.nome}"/>
+                        <hnvl:outputText id="fantasiaOutput" label="#{msg['dadosEmpresa.fantasia']}" value="#{crudAgenciaPublicitaria.selecionado.dados.nomeFantasia}"/>
+                        <hnvl:outputText id="cpfCnpjOutput" label="#{msg['dadosEmpresa.cpfCnpj']}" value="#{alterarSituacaoAgenciaBean.selecionado.dados.cpfCnpj}"/>
+                        <hnvl:outputText id="inscricaoMunicipalOutput" label="#{msg['dadosEmpresa.inscricaoMunicipal']}" value="#{crudAgenciaPublicitaria.selecionado.dados.inscricaoMunicipal}"/>
+                        <hnvl:outputText id="vendedorOutput" label="#{msg['agencia.vendedor']}" value="#{crudAgenciaPublicitaria.selecionado.vendedor.nome}"/>
+                    </h:panelGrid>
+                </fieldset>
+                                    
+                <fieldset>
+					<legend>${msg['situacao.title']}</legend>
+                    <h:panelGrid columns="2" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none,rotulo,none">
+                        <h:outputText value="#{msg['cliente.pessoa']}"/>
+                        <h:selectOneRadio id="statusSelect" value="#{alterarSituacaoAgenciaBean.selecionado.situacao.status }">
+                            <f:selectItems value="#{alterarSituacaoAgenciaBean.status}"/>
+                        </h:selectOneRadio>
+                        <hnvl:outputDate id="situacaoDataInput" label="#{msg['situacao.motivo']}" value="#{alterarSituacaoAgenciaBean.selecionado.situacao.dataAtualizacao}"/>
+                        <hnvl:inputTextarea id="situacaoObservacaoInput" label="#{msg['situacao.motivo']}" value="#{alterarSituacaoAgenciaBean.selecionado.situacao.motivo}"/>
+					</h:panelGrid>
+				</fieldset>
+                
+            </ui:define>
+        </ui:composition>
+    </f:view>
+</jsp:root>

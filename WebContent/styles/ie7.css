@@ -1,0 +1,7 @@
+@charset "utf-8";
+/* CSS Document */
+div#caixa-ferramentas { height: 65px; }
+
+#barra-ferramentas { height: 50px; }
+
+ul.mensagem-informa, ul.mensagem-alerta, ul.mensagem-erro { margin: 0 0 10px 0; }

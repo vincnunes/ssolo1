@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+                <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <h:form>
+        <rich:toolBar id="menu">
+            <rich:dropDownMenu>
+                <f:facet name="label" rendered="#{permissoesBean.cadastro.ver }">${msg['commons.menu.cadastros']}</f:facet>
+                <rich:menuItem action="#{crudArte.iniciar}" rendered="#{permissoesBean.arte.ver }">${msg['arte.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudAtividade.iniciar}" rendered="#{permissoesBean.atividade.ver }">${msg['atividade.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudBanco.iniciar}" rendered="#{permissoesBean.banco.ver }">${msg['banco.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudCapa.iniciar}" rendered="#{permissoesBean.capa.ver }">${msg['capa.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudCola.iniciar}" rendered="#{permissoesBean.cola.ver }">${msg['cola.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudContato.iniciar}" rendered="#{permissoesBean.contato.ver }">${msg['contato.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudCorte.iniciar}" rendered="#{permissoesBean.corte.ver }">${msg['corte.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudDobra.iniciar}" rendered="#{permissoesBean.dobra.ver }">${msg['dobra.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudFrete.iniciar}" rendered="#{permissoesBean.frete.ver }">${msg['frete.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudFuro.iniciar}" rendered="#{permissoesBean.furo.ver }">${msg['furo.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudGramatura.iniciar}" rendered="#{permissoesBean.gramatura.ver }">${msg['gramatura.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudGrampo.iniciar}" rendered="#{permissoesBean.grampo.ver }">${msg['grampo.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudImposto.iniciar}" rendered="#{permissoesBean.imposto.ver }">${msg['imposto.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudImpressao.iniciar}" rendered="#{permissoesBean.impressao.ver }">${msg['impressao.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudLombada.iniciar}" rendered="#{permissoesBean.lombada.ver }">${msg['lombada.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudOrcamento.iniciar}" rendered="#{permissoesBean.orcamento.ver }">${msg['orcamento.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudPagamento.iniciar}" rendered="#{permissoesBean.pagamento.ver }">${msg['pagamento.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudPagina.iniciar}" rendered="#{permissoesBean.pagina.ver }">${msg['pagina.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudPapel.iniciar}" rendered="#{permissoesBean.papel.ver }">${msg['papel.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudPlastificacao.iniciar}" rendered="#{permissoesBean.plastificacao.ver }">${msg['plastificacao.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudPrazo.iniciar}" rendered="#{permissoesBean.prazo.ver }">${msg['prazo.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudProva.iniciar}" rendered="#{permissoesBean.prova.ver }">${msg['prova.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudServico.iniciar}" rendered="#{permissoesBean.servico.ver }">${msg['servico.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudStatus.iniciar}" rendered="#{permissoesBean.status.ver }">${msg['status.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudVerniz.iniciar}" rendered="#{permissoesBean.verniz.ver }">${msg['verniz.title.menu']}</rich:menuItem>
+            </rich:dropDownMenu>
+            <rich:dropDownMenu>
+        		<f:facet name="label">${msg['commons.menu.entidades']}</f:facet>
+        		<rich:menuItem action="#{crudAgenciaPublicitaria.iniciar}" rendered="#{permissoesBean.agenciaCadastro.ver }">${msg['agencia.title.menu']}</rich:menuItem>
+        		<rich:menuItem action="#{crudCliente.iniciar}" rendered="#{permissoesBean.clienteCadastro.ver }">${msg['cliente.title.menu']}</rich:menuItem>
+        		<rich:menuItem action="#{crudTransportadora.iniciar}" rendered="#{permissoesBean.transportadora.ver }">${msg['transportadora.title.menu']}</rich:menuItem>
+        		<rich:menuItem action="#{crudUsuario.iniciar}" rendered="#{permissoesBean.usuario.ver }">${msg['usuario.title.menu']}</rich:menuItem>
+        	</rich:dropDownMenu>
+            <rich:dropDownMenu>
+        		<f:facet name="label">${msg['solicitacao.title.menu']}</f:facet>
+        		<rich:menuItem action="#{crudSolicitacao.iniciar}" rendered="#{permissoesBean.solicitacao.ver }" >${msg['solicitacao.title.menu']}</rich:menuItem>
+        	</rich:dropDownMenu>
+        	<rich:dropDownMenu>
+        		<f:facet name="label">${msg['commons.menu.auditoria']}</f:facet>
+        		<rich:menuItem action="#{crudAgenciaPublicitaria.consultar}" rendered="#{permissoesBean.agenciaAuditoria.ver }">${msg['commons.menu.auditoria.agencia']}</rich:menuItem>
+        		<rich:menuItem action="#{crudCliente.consultar}" rendered="#{permissoesBean.clienteAuditoria.ver }">${msg['commons.menu.auditoria.cliente']}</rich:menuItem>
+        	</rich:dropDownMenu>
+        	<rich:dropDownMenu>
+                <f:facet name="label">${msg['commons.menu.consultas']}</f:facet>
+                <rich:menuItem action="#{crudAgenciaPublicitaria.consultar}" rendered="#{permissoesBean.agenciaConsulta.ver }">${msg['agencia.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudCliente.consultar}" rendered="#{permissoesBean.clienteConsulta.ver }">${msg['cliente.title.menu']}</rich:menuItem>
+                <rich:menuItem action="#{crudSolicitacao.consultar}" rendered="#{permissoesBean.solicitacaoConsulta.ver }">${msg['solicitacao.title.menu']}</rich:menuItem>
+            </rich:dropDownMenu>
+            <rich:dropDownMenu>
+                <f:facet name="label">${msg['commons.menu.relatorios']}</f:facet>
+            </rich:dropDownMenu>
+        </rich:toolBar>
+    </h:form>
+
+</ui:composition>

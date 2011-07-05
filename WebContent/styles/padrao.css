@@ -1,0 +1,25 @@
+@CHARSET "ISO-8859-1";
+/*
+	Estilos de tags
+*/
+body,input {
+	font-family: Arial;
+	font-size: 9pt;
+}
+
+input {
+	border: 1px solid black;
+	padding: 0px 2px 0px 2px;
+	background-color: white;
+}
+
+table tfoot tr td {
+	text-align: right;
+}
+
+/*
+	Estilos comuns
+*/
+.error {
+	color: red;
+}

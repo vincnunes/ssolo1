@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			http://www.springframework.org/schema/tx
+			http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+  <!-- Data Source PostGres -->
+  <!--bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+    destroy-method="close" lazy-init="false">
+    <property name="driverClassName" value="org.postgresql.Driver" />
+    <property name="url" value="jdbc:postgresql://localhost:5432/sad" />
+    <property name="username" value="postgres" />
+    <property name="password" value="postgres" />
+  </bean-->
+  
+  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+    destroy-method="close" lazy-init="false">
+    <property name="driverClassName" value="org.postgresql.Driver" />
+    <property name="url" value="jdbc:postgresql://localhost:5432/newgrafica" />
+    <property name="username" value="postgres" />
+    <property name="password" value="postgres" />
+  </bean>
+
+  <!-- Hibernate Configuration-->
+  <bean id="hibernateSessionFactory" lazy-init="false"
+    class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+    <property name="dataSource" ref="dataSource" />
+    <property name="hibernateProperties">
+        <props>
+            <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect
+            </prop>
+            <prop key="hibernate.show_sql">true</prop>
+            <prop key="hibernate.hbm2ddl.auto">update</prop>
+            <prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
+        </props>
+    </property>
+
+    <property name="annotatedClasses">
+        <list>
+            <value>com.hvnl.ssolo.model.AgenciaEndereco</value>
+            <value>com.hvnl.ssolo.model.AgenciaPublicitaria</value>
+            <value>com.hvnl.ssolo.model.Arte</value>
+            <value>com.hvnl.ssolo.model.Atividade</value>
+            <value>com.hvnl.ssolo.model.Banco</value>
+            <value>com.hvnl.ssolo.model.Capa</value>
+            <value>com.hvnl.ssolo.model.Cidade</value>
+            <value>com.hvnl.ssolo.model.ClienteEndereco</value>
+            <value>com.hvnl.ssolo.model.Cliente</value>
+            <value>com.hvnl.ssolo.model.Cola</value>
+            <value>com.hvnl.ssolo.model.Conta</value>
+            <value>com.hvnl.ssolo.model.Contato</value>
+            <value>com.hvnl.ssolo.model.Corte</value>
+            <value>com.hvnl.ssolo.model.DadosEmpresa</value>
+            <value>com.hvnl.ssolo.model.Destino</value>
+            <value>com.hvnl.ssolo.model.Dobra</value>
+            <value>com.hvnl.ssolo.model.Empresa</value>
+            <value>com.hvnl.ssolo.model.Encarte</value>
+            <value>com.hvnl.ssolo.model.Endereco</value>
+            <value>com.hvnl.ssolo.model.Estado</value>
+            <value>com.hvnl.ssolo.model.Frete</value>
+            <value>com.hvnl.ssolo.model.Furo</value>
+            <value>com.hvnl.ssolo.model.Gramatura</value>
+            <value>com.hvnl.ssolo.model.Grampo</value>
+            <value>com.hvnl.ssolo.model.Imposto</value>
+            <value>com.hvnl.ssolo.model.Impressao</value>
+            <value>com.hvnl.ssolo.model.Livro</value>
+            <value>com.hvnl.ssolo.model.Lombada</value>
+            <value>com.hvnl.ssolo.model.Model</value>
+            <value>com.hvnl.ssolo.model.Orcamento</value>
+            <value>com.hvnl.ssolo.model.Pagamento</value>
+            <value>com.hvnl.ssolo.model.Pagina</value>
+            <value>com.hvnl.ssolo.model.Papel</value>
+            <value>com.hvnl.ssolo.model.Perfil</value>
+            <value>com.hvnl.ssolo.model.Plastificacao</value>
+            <value>com.hvnl.ssolo.model.Prazo</value>
+            <value>com.hvnl.ssolo.model.Prova</value>
+            <value>com.hvnl.ssolo.model.Rotulo</value>
+            <value>com.hvnl.ssolo.model.Servico</value>
+            <value>com.hvnl.ssolo.model.Situacao</value>
+            <value>com.hvnl.ssolo.model.SolicitacaoDestino</value>
+            <value>com.hvnl.ssolo.model.Solicitacao</value>
+            <value>com.hvnl.ssolo.model.SolicitacaoLocalEntrega</value>
+            <value>com.hvnl.ssolo.model.PapelGramatura</value>
+            <!-- <value>com.hvnl.ssolo.model.SolicitacaoPapel</value> -->
+            <value>com.hvnl.ssolo.model.Status</value>
+            <value>com.hvnl.ssolo.model.Transportadora</value>
+            <value>com.hvnl.ssolo.model.Usuario</value>
+            <value>com.hvnl.ssolo.model.Verniz</value>
+        </list>
+    </property>
+</bean>
+
+  <!-- Transaction Manager Configuration -->
+  <bean id="txManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <property name="sessionFactory" ref="hibernateSessionFactory" />
+  </bean>
+
+  <!-- Usando annotations para controle de transacoes -->
+  <tx:annotation-driven transaction-manager="txManager"/>
+
+  <context:component-scan base-package="com.hvnl.ssolo"/>
+
+</beans>

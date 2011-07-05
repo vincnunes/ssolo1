@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root version="2.0" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:cjsp="http://java.sun.com/jsp/jstl/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"    
+    xmlns:hnvl="http://www.hnvl.com/facelets">
+
+    <f:view>
+        <ui:composition template="/templates/padrao.xhtml">
+            <ui:define name="title">${msg['usuario.title']}</ui:define>
+            <ui:define name="operacao">${msg[crudUsuario.selecionado.id > 0 ? 'commons.alterar' : 'commons.criar']}</ui:define>
+            
+            <ui:define name="toolbar">
+                <hnvl:toolbar formulario="#{crudUsuario}" consultar="true" novo="true" salvar="true" cancelar="true"/>
+            </ui:define>
+            
+            <ui:define name="body">
+                <fieldset>
+                	<legend>${msg['usuario.dados']}</legend>
+	                <h:panelGrid columns="4" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none,rotulo,none">
+	                    <hnvl:outputText id="idOutput" label="#{msg['commons.id']}" value="#{crudUsuario.selecionado.id}"
+	                            rendered="#{crudUsuario.selecionado.id > 0}"/>
+	                    
+	                    <hnvl:inputText id="nomeInput" label="#{msg['commons.nome']}" value="#{crudUsuario.selecionado.nome}"/>
+	                    <h:outputText value="#{msg['dadosEmpresa.cpfCnpj']}"/>
+	                    <h:inputText id="cpfInput" value="#{crudUsuario.selecionado.cpf}" maxlength="14">
+	                    	<rich:jQuery id="maskCpfInput" query="mask('999.999.999-99')" selector="#cpfInput" timing="onload" />
+	                    </h:inputText>
+	                    <h:outputLabel value="#{msg['usuario.rg']}"/>
+	                    <h:inputText id="rgInput" value="#{crudUsuario.selecionado.rg}" >
+	                    	<rich:jQuery id="maskRg" query="numeric()" selector="#rgInput" timing="onload"/>
+	                    </h:inputText>
+	                    <h:outputText value="#{msg['usuario.dataNascimento']}"/>
+	                    <h:inputText id="dataNascimentoInput" value="#{crudUsuario.selecionado.dataNascimento}" >
+	                    	<rich:jQuery id="maskAniversario" query="mask('99/99/9999')" selector="#dataNascimentoInput" timing="onload"/>
+	                    	<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+	                    </h:inputText>
+	                    <h:outputText value="#{msg['usuario.email']}"/>
+	                    <h:inputText id="emailInput" value="#{crudUsuario.selecionado.email}" />
+	                    <h:outputLabel value="#{msg['usuario.telefone']}"/>
+	                    <h:inputText id="telefoneInput" value="#{crudUsuario.selecionado.telefone}" >
+	                    	<rich:jQuery id="maskTelefone" query="mask('(99)9999-9999')" selector="#telefoneInput" timing="onload"/>
+	                    </h:inputText>
+	                    <h:outputLabel value="#{msg['usuario.celular']}"/>
+	                    <h:inputText id="celularInput" value="#{crudUsuario.selecionado.celular}" >
+	                    	<rich:jQuery id="maskCelular" query="mask('(99)9999-9999')" selector="#celularInput" timing="onload"/>
+	                    </h:inputText>
+	                    <h:outputText value="#{msg['usuario.perfil']}"/>
+	                    <h:selectOneListbox id="perfilSelect" value="#{crudUsuario.selecionado.perfil}" size="1">
+	                    	<f:selectItems value="#{crudUsuario.perfis}"/>
+	                    </h:selectOneListbox>
+					</h:panelGrid>
+				</fieldset>
+				<fieldset>
+                	<legend>${msg['usuario.dados.acesso']}</legend>
+	                <h:panelGrid columns="2" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none">
+	                	<hnvl:inputText id="loginInput" label="#{msg['usuario.login']}" value="#{crudUsuario.selecionado.login}"/>
+	                	<h:outputText value="#{msg['usuario.senha']}"/>
+	                    <h:inputSecret id="senhaInput" value="#{crudUsuario.selecionado.senha}" redisplay="true"/>
+	                    <h:outputText value="#{msg['usuario.senha.repetir']}"/>
+	                    <h:inputSecret id="repetirSenhaInput" value="#{crudUsuario.repetirSenha}" redisplay="true">
+	                    	<a4j:support event="onblur" reRender="formulario" action="#{crudUsuario.testarSenha}"/>
+	                    </h:inputSecret>
+	                </h:panelGrid>
+				</fieldset>
+				<f:subview id="situacaoView" rendered="#{crudUsuario.selecionado.id > 0}">
+					<fieldset>
+						<legend>${msg['usuario.situacao.title']}</legend>
+						<h:panelGrid columns="6" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none,rotulo,none,rotulo,none">
+							<h:outputText value="#{msg['commons.status']}"/>
+							<h:selectOneListbox id="statusSelect" size="1" value="#{crudUsuario.selecionado.situacao.status}" >
+							    <f:selectItem itemValue="null" itemLabel="..."/>
+							    <f:selectItems value="#{crudUsuario.status}"/>
+							</h:selectOneListbox>
+							<hnvl:inputText id="motivoInput" label="#{msg['situacao.motivo']}" value="#{crudUsuario.selecionado.situacao.motivo}"/>
+							<h:outputText value="#{msg['situacao.dataAtualizacao']}"/>
+							<h:outputText value="#{crudUsuario.selecionado.situacao.dataAtualizacao}">
+								<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+							</h:outputText>
+						</h:panelGrid>
+					</fieldset>
+				</f:subview>
+				<fieldset>
+					<legend>${msg['usuario.endereco']}</legend>
+	                <h:panelGrid columns="4" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none,rotulo,none">
+	                	<hnvl:inputText id="logradouroInput" label="#{msg['endereco.logradouro']}" value="#{crudUsuario.selecionado.endereco.logradouro}"/>
+	                	<h:outputLabel value="#{msg['endereco.numero']}" />
+	                	<h:inputText id="numeroInput" value="#{crudUsuario.selecionado.endereco.numero}" >
+	                		<rich:jQuery id="maskNumero" query="numeric()" selector="#numeroInput" timing="onload"/>
+	                	</h:inputText>
+	                	<hnvl:inputText id="complementoInput" label="#{msg['endereco.complemento']}" value="#{crudUsuario.selecionado.endereco.complemento}"/>
+	                	<hnvl:inputText id="bairroInput" label="#{msg['endereco.bairro']}" value="#{crudUsuario.selecionado.endereco.bairro}"/>
+	                	<h:outputText value="#{msg['endereco.estado']}"/>
+						<h:selectOneListbox id="estadoSelect" size="1" value="#{crudUsuario.estado}" >
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudUsuario.estados}"/>
+						    <a4j:support event="onchange" reRender="formulario" />
+						</h:selectOneListbox>
+						<h:outputText value="#{msg['endereco.cidade']}"/>
+						<h:selectOneListbox id="cidadeSelect" size="1" value="#{crudUsuario.selecionado.endereco.cidade}" >
+						    <f:selectItem itemValue="null" itemLabel="..."/>
+						    <f:selectItems value="#{crudUsuario.cidades}"/>
+						</h:selectOneListbox>
+						<h:outputText value="#{msg['endereco.cep']}"/>
+						<h:inputText id="cepInput" value="#{crudUsuario.selecionado.endereco.cep}">
+							<rich:jQuery id="maskCep" query="mask('99999-999')" selector="#cepInput" timing="onload"/>
+						</h:inputText>
+						<a4j:commandButton action="#{crudUsuario.buscarEndereco }" value="Pesquisar CEP" reRender="formulario"/>
+	                </h:panelGrid>
+				</fieldset>
+				<h:panelGrid columns="4" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none,rotulo,none">
+                    <hnvl:outputText id="usuOutput" label="#{msg['commons.criadopor']}" value="#{crudUsuario.selecionado.usuarioCadastro.nome}"
+                            rendered="#{not empty crudUsuario.selecionado.id}"/>
+                    <hnvl:outputDate id="datOutput" label="#{msg['commons.criadoem']}" value="#{crudUsuario.selecionado.dataCadastro}"
+                            rendered="#{not empty crudUsuario.selecionado.id}"/>
+                </h:panelGrid>
+                
+                <div style="width: 100%">
+                    <h:dataTable value="#{crudUsuario.selecionados}" var="usuario" styleClass="lista-admin"
+                          rendered="#{!empty crudUsuario.selecionados}" rowClasses="odd, zebra" id="orgaos"
+                          columnClasses="col-centralizado,col-esquerdo,col-esquerdo">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['commons.id']}" />
+                            </f:facet>
+                            <a4j:commandLink reRender="formulario">
+                                <h:outputText value="#{usuario.id}" />
+                                <f:setPropertyActionListener target="#{crudUsuario.selecionado}" value="#{usuario}" />
+                            </a4j:commandLink>
+                        </h:column>
+            
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['commons.nome']}"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.nome}"/>
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['usuario.login']}"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.login}"/>
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{msg['usuario.perfil']}"/>
+                            </f:facet>
+                            <h:outputText value="#{usuario.perfil}"/>
+                        </h:column>
+                        
+                        <h:column>
+                            <f:facet name="header">
+                               <h:outputText value="#{msg['commons.alterar']}" styleClass="txtesq" /> 
+                            </f:facet>
+                            <a4j:commandLink reRender="formulario">
+                                <img src="/auth/imagens/table-edit.png" alt="#{msg['commons.alterar']}" title="#{msg['commons.alterar']}"/>
+                                <f:setPropertyActionListener target="#{crudUsuario.selecionado}" value="#{usuario}" />
+                            </a4j:commandLink>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+                
+            </ui:define>
+        </ui:composition>
+    </f:view>
+</jsp:root>

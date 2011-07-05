@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+	<c:if test="#{empty required}">
+		<c:set var="required" value="false" />
+	</c:if>
+
+	<c:if test="#{empty rendered}">
+		<c:set var="rendered" value="true" />
+	</c:if>
+	
+	<c:if test="#{empty showCalendar}">
+		<c:set var="showCalendar" value="true" />
+	</c:if>
+	
+	<c:if test="#{empty id}">
+        <c:set var="id" value="date_#{dataCorrente.time}" />
+    </c:if>
+	
+	<c:if test="#{empty pattern}">
+        <c:set var="pattern" value="dd/MM/yyyy" />
+    </c:if>
+	
+	<c:if test="#{not empty label}">
+	   <h:outputLabel value="#{label}:" for="#{id}" rendered="#{rendered}" />
+	</c:if>
+
+    <h:column>
+        <c:if test="#{showCalendar}">
+	        <rich:calendar id="#{id}" datePattern="#{pattern}" value="#{value}" rendered="#{rendered}"
+	                inputStyle="width: 70px;" required="#{required}" disabled="#{disabled}" readonly="#{readonly}">
+	            <f:convertDateTime pattern="#{pattern}" />
+	            
+	            <c:if test="#{not empty ajuda}">
+	                <rich:toolTip followMouse="true" direction="top-right" showDelay="500" styleClass="tooltip">
+	                    <h:outputText escape="false" value="#{ajuda}" />
+	                </rich:toolTip>
+	            </c:if>
+	        </rich:calendar>
+    	</c:if>
+    	
+    	<c:if test="#{not showCalendar}">
+    	   <h:inputText id="#{id}" value="#{value}"  style="width: 100px;">
+               <f:convertDateTime pattern="#{pattern}" />
+               <rich:jQuery selector="##{id}" query="mask('#{mask}');" timing="onload"/>
+           </h:inputText>
+    	</c:if>
+    	
+		<c:if test="#{required}">
+	       <span class="required">*</span>
+	    </c:if>
+	</h:column>
+	
+</ui:composition>

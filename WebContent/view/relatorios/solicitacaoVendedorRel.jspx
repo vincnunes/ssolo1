@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:c="http://java.sun.com/jstl/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:hnvl="http://www.hnvl.com/facelets">
+
+    <f:view>
+        <ui:composition template="/templates/padrao.xhtml">
+        
+        <ui:define name="title">${msg['solicitacao.title']}</ui:define>
+        <ui:define name="operacao">${msg['commons.listar']}</ui:define>
+        
+        <ui:define name="toolbar">
+            <hnvl:toolbar formulario="#{crudSolicitacao}" cancelar="true"/>
+        </ui:define>
+                    
+        <ui:define name="body">
+            <div style="width: 100%"> 
+                <div id="filtros">
+                    <fieldset>
+                        <legend>${msg['commons.filtros']}</legend>
+                         <h:panelGrid columns="2" cellspacing="5" styleClass="tab-edita" columnClasses="rotulo,none">
+                         	<h:outputText value="#{msg['solicitacao.vendedor']}" rendered="#{permissoesBean.solicitacaoConsultaVendedor.ver}"/>
+                            <h:selectOneListbox id="vendedorSelect" size="1" value="#{crudSolicitacao.selecionado.vendedor}">
+                                <f:selectItem itemValue="null" itemLabel="..."/>
+                                <f:selectItems value="#{crudSolicitacao.vendedores}"/>
+                            </h:selectOneListbox>
+                            
+							
+                        </h:panelGrid>
+                    </fieldset>
+                    <fieldset>
+                        <legend>${msg['commons.periodo']}</legend>
+                        <fieldset>
+                        	<legend>${msg['solicitacao.periodo.cadastro']}</legend>
+	                        <h:panelGrid columns="4" cellspacing="5" styleClass="tab-edita" columnClasses="rotulo,none,rotulo,none">
+	                        	<hnvl:inputDate id="inicioInput" label="#{msg['commons.periodo.inicio']}" value="#{crudSolicitacao.selecionado.dataCadastroInicial}"/>
+	                        	<hnvl:inputDate id="finalInput" label="#{msg['commons.periodo.fim']}" value="#{crudSolicitacao.selecionado.dataCadastroFinal}"/>
+	                        </h:panelGrid>
+                        </fieldset>
+                        
+                        <fieldset>
+                        	<legend>${msg['solicitacao.periodo.finalizado']}</legend>
+                        	<h:panelGrid columns="4" cellspacing="5" styleClass="tab-edita" columnClasses="rotulo,none,rotulo,none">
+	                        	<hnvl:inputDate id="finalizadoInicioInput" label="#{msg['solicitacao.periodo.finalizado.inicio']}" value="#{crudSolicitacao.selecionado.dataFinalizacaoInicial}"/>
+	                        	<hnvl:inputDate id="finalizadoFinalInput" label="#{msg['solicitacao.periodo.finalizado.fim']}" value="#{crudSolicitacao.selecionado.dataFinalizacaoFinal}"/>
+	                        </h:panelGrid>
+                        </fieldset>
+                    </fieldset>
+                </div>
+            </div>
+            
+	        <div style="width: 100%">
+		        <h:dataTable value="#{crudSolicitacao.selecionados}"  var="solicitacao" styleClass="lista-admin" rendered="#{!empty crudSolicitacao.selecionados}" id="solicitacaoList" 
+		              rowClasses="odd, zebra" columnClasses="col-centralizado,col-esquerdo,col-esquerdo,col-esquerdo,col-centralizado,col-esquerdo,col-centralizado" >
+		            
+                    <h:column>
+		                <f:facet name="header">${msg['commons.id']}</f:facet>
+	                    <h:outputText value="#{solicitacao.id}" styleClass="text-align: center;"/>
+		            </h:column>
+                    
+                    <h:column>
+		                <f:facet name="header">${msg['solicitacao.vendedor']}</f:facet>
+	                    <h:outputText value="#{solicitacao.vendedor.nome}" />
+		            </h:column>
+                    
+                    <h:column>
+		                <f:facet name="header">${msg['solicitacao.cliente']}</f:facet>
+	                    <h:outputText value="#{solicitacao.cliente.nome}" />
+		            </h:column>
+                    
+                    <h:column>
+		                <f:facet name="header">${msg['solicitacao.agencia']}</f:facet>
+	                    <h:outputText value="#{solicitacao.agencia.nome}" />
+		            </h:column>
+                    
+                    <h:column>
+		                <f:facet name="header">${msg['solicitacao.data.cadastrado']}</f:facet>
+	                    <h:outputText value="#{solicitacao.dataCadastro}" styleClass="text-align: center;"/>
+		            </h:column>
+		            
+		            <h:column>
+		                <f:facet name="header">${msg['solicitacao.data.finalizado']}</f:facet>
+	                    <h:outputText value="#{solicitacao.dataFinalizacao}" styleClass="text-align: center;"/>
+		            </h:column>
+                    
+                    <h:column>
+		                <f:facet name="header">${msg['solicitacao.servico']}</f:facet>
+	                    <h:outputText value="#{solicitacao.servico.nome}" styleClass="text-align: center;"/>
+		            </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">${msg['solicitacao.quantidade']}</f:facet>
+                        <h:outputText value="#{solicitacao.quantidade}" styleClass="text-align: center;"/>
+                    </h:column>
+		
+		            <h:column headerClass="text-align: center;">
+		                <f:facet name="header">${msg['commons.opcao']}</f:facet>
+		                <h:commandLink action="#{crudSolicitacao.editar}" rendered="#{!solicitacao.finalizado}"> 
+		                    <img src="../../imagens/table-edit.png" alt="Alterar Registro" title="Alterar Registro"/>
+		                    <f:setPropertyActionListener target="#{crudSolicitacao.selecionado}" value="#{solicitacao}" />
+		                </h:commandLink>
+		                <h:commandLink action="#{crudSolicitacao.relatorioRegistro}"> 
+		                    <img src="../../imagens/table-print.png" alt="Imprimir" title="Imprimir Registro"/>
+		                    <f:setPropertyActionListener target="#{crudSolicitacao.selecionado}" value="#{solicitacao}" />
+		                </h:commandLink>
+		            </h:column>
+		        </h:dataTable>
+	        </div>
+        </ui:define>
+        
+        </ui:composition>
+    </f:view>
+</jsp:root>

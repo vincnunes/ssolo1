@@ -1,12 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-  <display-name>ssolo1</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<listener>
+		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+	</listener>
+
+    <!-- FACES SERVLET -->
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsfx</url-pattern>
+    </servlet-mapping>
+
+    <!-- SPRING -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    
+    <!-- <listener>
+       <listener-class>br.gov.ce.seinfra.listeners.DefaultSessionListener</listener-class>
+    </listener> -->
+    
+    <!--
+        <context-param> <param-name>log4jConfigLocation</param-name>
+        <param-value>/WEB-INF/log4j.properties</param-value> </context-param>
+    -->
+
+    <!-- Spring context Configuration Begins-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/spring-config.xml</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>javax.faces.CONFIG_FILES</param-name>
+        <param-value>/WEB-INF/faces-config.xml, /WEB-INF/faces-navigation.xml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>client</param-value>
+    </context-param>
+
+    <!-- Extensions Filter -->
+    <context-param>
+        <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+        <param-value>.jspx</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>facelets.DEVELOPMENT</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>facelets.REFRESH_PERIOD</param-name>
+        <param-value>1</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.richfaces.SKIN</param-name>
+        <param-value>emeraldTown</param-value>
+    </context-param>
+    <context-param>
+        <param-name>facelets.LIBRARIES</param-name>
+        <param-value>/WEB-INF/facelets/facelets.taglib.xml</param-value>
+    </context-param>
+
+    <!-- RichFaces -->
+    <filter>
+        <display-name>RichFaces Filter</display-name>
+        <filter-name>richfaces</filter-name>
+        <filter-class>org.ajax4jsf.Filter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>richfaces</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+    </filter-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+    <!-- <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Paginas jspx</web-resource-name>
+            <url-pattern>*.jspx</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>PROIBIDO</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-role>
+        <role-name>PROIBIDO</role-name>
+    </security-role> -->
+    <!--
+        <error-page> <error-code>404</error-code>
+        <location>/404.jsfx</location> </error-page> <error-page>
+        <error-code>500</error-code> <location>/error.jsp</location>
+        </error-page>
+    -->
+    
+    <!-- <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Quaisquer páginas</web-resource-name>
+            <url-pattern>/view/*</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>Quaisquer páginas</web-resource-name>
+            <url-pattern>*.jsfx</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>SAP</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
+    <security-role>
+        <role-name>SAP</role-name>
+    </security-role> -->
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    
+    <!-- <login-config>
+       <auth-method>FORM</auth-method>
+       <form-login-config>
+           <form-login-page>/login.html</form-login-page>
+           <form-error-page>/login.html</form-error-page>
+       </form-login-config>
+    </login-config> -->
+    
+    <session-config>
+        <session-timeout>15</session-timeout> 
+    </session-config>
+    
 </web-app>

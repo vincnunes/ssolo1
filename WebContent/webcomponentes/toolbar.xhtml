@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+				"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<table class="barra-ferramentas">
+        <tr>
+           <f:subview rendered="#{processar == 'true' and (ajax == null || ajax == 'true')}">      
+                <td class="botao" id="ferramenta-processar">
+                    <a4j:commandLink action="${formulario.processarImportacao}" value="" styleClass="toolbar" reRender="formulario">
+                        <span class="icone-32-processar" title="Processar"></span>
+                        Processar
+                    </a4j:commandLink>
+                </td>
+            </f:subview>
+            
+            <f:subview rendered="#{acompanhamentos == 'true'}">
+	            <td class="botao" id="ferramenta-historico">
+	                <h:commandLink action="#{viewAcompanhamentos.iniciar}" value="" styleClass="toolbar">
+	                    <f:setPropertyActionListener value="#{formulario.selecionado}" target="#{viewAcompanhamentos.selecionado}"/>
+	                    <span class="icone-32-historico" title="Historico"></span>
+	                    Histórico
+	                </h:commandLink>
+	            </td>
+	        </f:subview>
+	        
+            <f:subview rendered="#{filtrar == 'true' and ajax == 'false'}">
+                <td class="botao" id="ferramenta-filtrar">
+                    <h:commandLink action="${formulario.filtrar}" value="" styleClass="toolbar">
+                        <span class="icone-32-buscar" title="Buscar"></span>
+                        Buscar
+                    </h:commandLink>
+                </td>
+            </f:subview>
+            
+            <f:subview rendered="#{filtrar == 'true' and (ajax == null || ajax == 'true')}">
+                <td class="botao" id="ferramenta-filtrar-ajax">
+                    <a4j:commandLink action="${formulario.filtrar}" value="" styleClass="toolbar" reRender="formulario">
+                        <span class="icone-32-buscar" title="Buscar"></span>
+                        Buscar
+                    </a4j:commandLink>
+                </td>
+            </f:subview>
+
+			<f:subview rendered="#{consultar == 'true' and (ajax == null || ajax == 'true')}">
+                <td class="botao" id="ferramenta-consultar-ajax">
+                    <a4j:commandLink action="${formulario.consultar}" value="" styleClass="toolbar" reRender="formulario">
+                        <span class="icone-32-buscar" title="Consultar"></span>
+                        Consultar
+                    </a4j:commandLink>
+                </td>
+            </f:subview>
+            
+            <f:subview rendered="#{consultaNovo == 'true'}">
+                <td class="botao" id="ferramenta-novo">
+                    <h:commandLink action="${formulario.consultaNovo}" value="" styleClass="toolbar">
+                        <span class="icone-32-novo" title="Novo"></span>
+                        Novo
+                    </h:commandLink>
+                </td>
+            </f:subview>
+            
+            <f:subview rendered="#{relatorioPdf == 'true'}">
+	            <td class="botao" id="ferramenta-relatorio-pdf">
+	                <h:commandLink action="${formulario.relatorio}"  value="" styleClass="toolbar">
+	                   <span class="icone-32-relatorio-pdf" title="Relatorio"></span>
+	                   Relatório
+	                </h:commandLink>
+	            </td>
+	        </f:subview>
+	        
+	        <f:subview rendered="#{relatorioXls == 'true'}">
+                <td class="botao" id="ferramenta-relatorio-xls">
+                    <h:commandLink action="${formulario.relatorioXLS}"  value="" styleClass="toolbar">
+                       <span class="icone-32-relatorio-planilha" title="Relatorio"></span>
+                       Excel
+                    </h:commandLink>
+                </td>
+            </f:subview>
+            
+            <f:subview rendered="#{novo == 'true'}">
+                <td class="botao" id="ferramenta-novo">
+                    <h:commandLink action="${formulario.novo}" value="" styleClass="toolbar">
+                        <span class="icone-32-novo" title="Novo"></span>
+                        Novo
+                    </h:commandLink>
+                </td>
+            </f:subview>
+            
+            <f:subview rendered="#{consultaNovo == 'true'}">
+                <td class="botao" id="ferramenta-novo">
+                    <h:commandLink action="${formulario.consultaNovo}" value="" styleClass="toolbar">
+                        <span class="icone-32-novo" title="Novo"></span>
+                        Novo
+                    </h:commandLink>
+                </td>
+            </f:subview>
+            
+            <f:subview rendered="#{editar == 'true'}">
+                <td class="botao" id="ferramenta-editar">
+                    <h:commandLink action="${formulario.editar}" value="" styleClass="toolbar" reRender="formulario">
+                        <span class="icone-32-editar" title="Editar"></span>
+                        Editar
+                    </h:commandLink>
+                </td>
+            </f:subview>
+
+          <f:subview rendered="#{salvar == 'true'}">
+              <td class="botao" id="ferramenta-salvar">
+                  <h:commandLink action="${formulario.salvar}" styleClass="toolbar">
+                     <span class="icone-32-salvar" title="Salvar"></span>
+                     Salvar
+                  </h:commandLink>
+              </td>
+          </f:subview>
+
+          <f:subview rendered="#{finalizar == 'true'}">
+              <td class="botao" id="ferramenta-salvar">
+                  <h:commandLink action="${formulario.finalizar}" styleClass="toolbar">
+                     <span class="icone-32-salvar" title="Finalizar"></span>
+                     Finalizar
+                  </h:commandLink>
+              </td>
+          </f:subview>
+            
+          <f:subview rendered="${excluir == 'true' and formulario.selecionado.id > 0}">
+                <td class="botao" id="ferramenta-excluir">
+                    <h:commandLink action="${formulario.excluir}" styleClass="toolbar"
+                            onclick="if (!window.confirm('#{msg['commons.mensagem.confirma.exclusao']}')) { return false; }">
+                        <span class="icone-32-lixeira" title="Excluir"></span>
+                        Excluir
+                    </h:commandLink>
+                </td>
+            </f:subview>
+     
+            
+            <f:subview rendered="#{cancelar == 'true'}">            
+                <td class="botao" id="ferramenta-cancelar">
+                    <h:commandLink action="${formulario.cancelar}" styleClass="toolbar" immediate="true">
+                        <span class="icone-32-cancelar" title="Fechar"></span>
+                        Cancelar
+                    </h:commandLink>
+                </td>
+            </f:subview>
+            
+          
+        </tr>
+	</table>
+</ui:composition>

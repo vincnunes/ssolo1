@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+                <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <rich:modalPanel id="#{id}" width="#{width}" height="#{height}" style="overflow: auto;"  onshow="javascript:focarInput#{id}();">
+        
+        <f:facet name="header">
+            <h:panelGroup>
+                <h:outputText value="#{title}" />
+            </h:panelGroup>
+        </f:facet>
+        <f:facet name="controls">
+            <h:panelGroup>
+                <img src="/auth/imagens/close.png" alt="#{msg['commons.fechar']}" title="#{msg['commons.fechar']}" id="hidelink_#{id}"/>
+                <rich:componentControl for="#{id}" attachTo="hidelink_#{id}" operation="hide" event="onclick"/>
+            </h:panelGroup>
+        </f:facet>
+        
+        <h:form id="popupForm_#{id}">
+            <ui:insert name="bodyPopUp" />
+        </h:form>
+        
+        <script language="javascript">
+
+        function focarInput#{id}() {
+
+			var componentes = document.getElementById("popupForm_#{id}").getElementsByTagName("input");
+			for (var i = 0; i &lt; componentes.length; i++) {
+			    var input = componentes[i];
+			    if (input.type &amp;&amp; input.type == "text") {
+			        input.focus();
+			        if (input.setSelectionRange) {
+			        	input.setSelectionRange(0, input.value.length);
+                    } else if (input.createTextRange) {
+                        var range = input.createTextRange();
+                        range.collapse(true);
+                        range.moveEnd('character', 0);
+                        range.moveStart('character', input.value.length);
+                        range.select();
+                    }
+			        
+			        break;
+			    }
+			}
+        }
+        </script>
+        
+        
+    </rich:modalPanel>
+
+</ui:composition>

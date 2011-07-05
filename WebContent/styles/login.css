@@ -1,0 +1,74 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*--------------------------------------------------------*/
+/*--- ESTILOS GERAIS                                   ---*/
+/*--------------------------------------------------------*/
+
+body         { margin: 0 10px 0 10px; padding: 0; background: #fff; padding-bottom: 1px; font-size: 11px; }
+body, td, th { font-family: Arial, Helvetica, sans-serif; }
+html, body   { height: 95%; }
+a, img       { padding: 0; margin: 0; }
+img          { border: 0 none; }
+form         { margin: 0; padding: 0; }
+a:link       { text-decoration: none; color: #04864A; }
+a:visited    { text-decoration: none; color: #04864A; }
+a:hover      { text-decoration: underline; }
+
+fieldset                                    { border-style: solid; border-color: #ccc; border-width: 1px; }
+input, select                               { border: solid 1px #ccc; font-size: 10px; }
+button                                      { font-size: 10px; }
+
+textarea { font-size: 11px; border: solid 1px silver; }
+
+legend { color: #0b55c4; font-size: 12px; font-weight: bold; }
+
+.limpa { clear: both; overflow: hidden; height: 0; }
+.recuo { padding: 10px; }
+.branco { background: #fff; }
+
+#largura-minima { min-width: 960px; }
+
+
+/*--------------------------------------------------------*/
+/*--- LAYOUT                                           ---*/
+/*--------------------------------------------------------*/
+
+#cabecalho.cab_verde         { background: url(../imagens/cablog_meio.png) repeat-x; }
+#cabecalho.cab_verde div     { background: url(../imagens/cablog_direito.png) 100% 0 no-repeat; }
+#cabecalho.cab_verde div div { background: url(../imagens/cablog_esquerdo.png) no-repeat; height: 46px; }
+#cabecalho .calendario       { color: #fff; font-size: 13px; margin-left: 17px; line-height: 44px; }
+
+#corpo { margin-top: 10px; }
+#janela { width: 800px; margin: auto; }
+
+#formulario                       { width: 443px; float: right; }
+#formulario .titulo               { color: #04894C; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 18px; padding: 30px 0 0 40px; }
+#formulario #campos               { margin: 50px 0 0 75px; }
+#formulario #campos .campo-titulo { color: #04894C; font-size: 12px; font-family: Verdana, Arial, Helvetica, sans-serif; }
+#formulario #campos .campo        { width: 278px; border-color: #ccc; padding: 5px; font-size: 16px; }
+#formulario #campos .botao        { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold; color: #fff; }
+#formulario #campos .botao        { padding: 7px 25px 7px 25px; background: #04874A; border: none 0; }
+#formulario #campos .botao        { background: url(../imagens/btn_login.jpg); }
+#formulario #campos .senha        { margin-left: 50px; font-size: 12px; }
+
+#logo { padding-top: 50px; }
+
+.borda-topo         { background: url(../imagens/j_border.png) repeat-x; }
+.borda-topo div     { background: url(../imagens/j_crn_tr_med.png) 100% 0 no-repeat; }
+.borda-topo div div { background: url(../imagens/j_crn_tl_med.png) no-repeat; height: 6px; }
+
+.borda-corpo { border-left-style: solid; border-left-width: 1px; border-left-color: #CCC; }
+.borda-corpo { border-right-style: solid; border-right-width: 1px; border-right-color: #CCC; }
+
+.segundo-plano { background: url(../imagens/back_login.png) repeat-x; }
+
+.borda-baixo         { background: url(../imagens/j_bottom.png) repeat-x; }
+.borda-baixo div     { background: url(../imagens/j_corner_br.png) 100% 0 no-repeat; }
+.borda-baixo div div { background: url(../imagens/j_corner_bl.png) no-repeat; height: 11px; }
+
+#rodape         { background: url(../imagens/rodlog_meio.png) repeat-x; margin: 10px 0 0 0; }
+#rodape div     { background: url(../imagens/rodlog_direito.png) 100% 0 no-repeat; }
+#rodape div div { background: url(../imagens/rodlog_esquerdo.png) no-repeat; height: 66px; }
+#rodape .texto  { text-align: center; padding-top: 40px; }
+

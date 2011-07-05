@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This configuration file was written by the eclipse-cs plugin configuration editor
+-->
+<!--
+    Checkstyle-Configuration: modelo
+    Description: none
+-->
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN" "http://www.puppycrawl.com/dtds/configuration_1_2.dtd">
+<module name="Checker">
+    <property name="severity" value="error"/>
+    <property name="localeCountry" value="US"/>
+    <property name="localeLanguage" value="en"/>
+    
+    <module name="FileLength"/>
+    
+    <module name="TreeWalker">
+        <property name="severity" value="warning"/>
+        <property name="tabWidth" value="4"/>
+        <module name="JavadocMethod">
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.lastEnabledSeverity" value="error"/>
+            <property name="severity" value="error"/>
+            <property name="allowMissingPropertyJavadoc" value="true"/>
+        </module>
+        <module name="JavadocType">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="JavadocVariable">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="JavadocStyle">
+            <property name="severity" value="error"/>
+            <property name="checkEmptyJavadoc" value="true"/>
+        </module>
+        <module name="ConstantName"/>
+        <module name="LocalFinalVariableName"/>
+        <module name="LocalVariableName"/>
+        <module name="MemberName"/>
+        <module name="MethodName"/>
+        <module name="PackageName"/>
+        <module name="ParameterName"/>
+        <module name="StaticVariableName"/>
+        <module name="TypeName"/>
+        <module name="AvoidStarImport"/>
+        <module name="IllegalImport"/>
+        <module name="RedundantImport"/>
+        <module name="UnusedImports">
+            <property name="severity" value="error"/>
+        </module>
+        
+        <module name="LineLength">
+            <property name="max" value="90"/>
+        </module>
+        <module name="MethodLength"/>
+        <module name="ParameterNumber">
+            <property name="max" value="8"/>
+        </module>
+        <module name="EmptyForIteratorPad"/>
+        <module name="MethodParamPad"/>
+        <module name="NoWhitespaceAfter">
+            <property name="tokens" value="ARRAY_INIT,BNOT,DEC,DOT,INC,LNOT,UNARY_MINUS,UNARY_PLUS"/>
+        </module>
+        <module name="NoWhitespaceBefore"/>
+        <module name="OperatorWrap"/>
+        <module name="ParenPad"/>
+        <module name="TypecastParenPad">
+            <property name="tokens" value="RPAREN,TYPECAST"/>
+        </module>
+        <module name="TabCharacter">
+            <property name="severity" value="ignore"/>
+        </module>
+        <module name="WhitespaceAfter"/>
+        <module name="WhitespaceAround">
+            <property name="tokens" value="ASSIGN,BAND,BAND_ASSIGN,BOR,BOR_ASSIGN,BSR,BSR_ASSIGN,BXOR,BXOR_ASSIGN,COLON,DIV,DIV_ASSIGN,EQUAL,GE,GT,LAND,LCURLY,LE,LITERAL_ASSERT,LITERAL_CATCH,LITERAL_DO,LITERAL_ELSE,LITERAL_FINALLY,LITERAL_FOR,LITERAL_IF,LITERAL_RETURN,LITERAL_SYNCHRONIZED,LITERAL_TRY,LITERAL_WHILE,LOR,LT,MINUS,MINUS_ASSIGN,MOD,MOD_ASSIGN,NOT_EQUAL,PLUS,PLUS_ASSIGN,QUESTION,RCURLY,SL,SLIST,SL_ASSIGN,SR,SR_ASSIGN,STAR,STAR_ASSIGN,LITERAL_ASSERT,TYPE_EXTENSION_AND"/>
+        </module>
+        <module name="ModifierOrder"/>
+        <module name="RedundantModifier"/>
+        <module name="AvoidNestedBlocks"/>
+        <module name="EmptyBlock"/>
+        <module name="LeftCurly"/>
+        <module name="NeedBraces"/>
+        <module name="RightCurly"/>
+        <module name="DoubleCheckedLocking"/>
+        <module name="EmptyStatement"/>
+        <module name="EqualsHashCode">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="IllegalInstantiation">
+            <property name="classes" value="Boolean,Integer,Byte,Character,Long,Double,Float,Short"/>
+        </module>
+        <module name="InnerAssignment"/>
+        <module name="MissingSwitchDefault"/>
+        <module name="SimplifyBooleanExpression"/>
+        <module name="SimplifyBooleanReturn"/>
+        <module name="VisibilityModifier"/>
+        <module name="ArrayTypeStyle"/>
+        <module name="Regexp">
+            <property name="severity" value="error"/>
+            <property name="format" value="[^\*]\s+$"/>
+            <property name="message" value="Line has trailing spaces."/>
+        </module>
+        <module name="UpperEll"/>
+        <module name="CovariantEquals"/>
+        <module name="DefaultComesLast"/>
+        <module name="ExplicitInitialization"/>
+        <module name="FallThrough"/>
+        <module name="IllegalCatch"/>
+        <module name="MultipleStringLiterals">
+            <property name="allowedDuplicates" value="2"/>
+            <property name="ignoreStringsRegexp" value="^&quot;&quot;$|^&quot;.{1,6}&quot;$|^&quot;[A-Z]{3}_.*&quot;$|^&quot;\s*&quot;$|^&quot;unchecked&quot;$"/>
+        </module>
+        <module name="MultipleVariableDeclarations"/>
+        <module name="PackageDeclaration"/>
+        <module name="ParameterAssignment"/>
+        <module name="StringLiteralEquality"/>
+        <module name="UnnecessaryParentheses"/>
+        <module name="CyclomaticComplexity">
+            <property name="severity" value="error"/>
+            <property name="max" value="14"/>
+        </module>
+        <module name="TrailingComment"/>
+        <module name="DeclarationOrder"/>
+        <module name="AnonInnerLength">
+            <property name="max" value="100"/>
+        </module>
+        <module name="IllegalThrows"/>
+        <module name="IllegalType">
+            <property name="tokens" value="METHOD_DEF,PARAMETER_DEF,VARIABLE_DEF"/>
+        </module>
+        <module name="SuperClone"/>
+        <module name="SuperFinalize"/>
+        <module name="NPathComplexity">
+            <property name="severity" value="error"/>
+            <property name="max" value="9"/>
+        </module>
+        <module name="Indentation">
+             <property name="basicOffset" value="4" />
+            <property name="caseIndent" value="4" />
+        </module>
+        <module name="UncommentedMain"/>
+        <module name="ClassDataAbstractionCoupling">
+            <property name="severity" value="ignore"/>
+            <property name="max" value="20"/>
+        </module>
+        <module name="FinalClass">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="HideUtilityClassConstructor">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="InterfaceIsType">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="TabCharacter">
+            <property name="severity" value="ignore"/>
+        </module>
+        <module name="TypecastParenPad">
+            <property name="tokens" value="RPAREN,TYPECAST"/>
+        </module>
+    </module>
+    <module name="Translation">
+        <property name="severity" value="warning"/>
+    </module>
+</module>
