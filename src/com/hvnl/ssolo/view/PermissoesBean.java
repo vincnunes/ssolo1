@@ -197,8 +197,8 @@ public class PermissoesBean extends BaseBean {
         /* Menu Cadastro */
         
         /* Menu Entidades */
-        add(PERFIL.VENDEDOR, "agenciaPublicitaria.cadastro",new Permissao(false, false, false, false));
-        add(PERFIL.VENDEDOR, "agenciaPublicitaria.consulta",new Permissao(false, false, false, false));
+        add(PERFIL.VENDEDOR, "agenciaPublicitaria.cadastro",new Permissao(false, false, true, false));
+        add(PERFIL.VENDEDOR, "agenciaPublicitaria.consulta",new Permissao(false, false, true, false));
         add(PERFIL.VENDEDOR, "cliente.cadastro",			new Permissao(false, false, true, false));
         add(PERFIL.VENDEDOR, "cliente.consulta",			new Permissao(false, false, true, false));
         add(PERFIL.VENDEDOR, "transportadora",		new Permissao(false, false, false, false));

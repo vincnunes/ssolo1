@@ -163,12 +163,12 @@ public class Solicitacao extends Model {
     @Fetch(FetchMode.JOIN)
     private Status status;
 
-    /**
-     * Quantidade de paginas.
-     */
-    @ManyToOne(fetch = FetchType.EAGER)
-    @Fetch(FetchMode.JOIN)
-    private Pagina paginas;
+//    /**
+//     * Quantidade de paginas.
+//     */
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @Fetch(FetchMode.JOIN)
+//    private Pagina paginas;
 
     /**
      * Detalhes de Livro.
@@ -208,6 +208,11 @@ public class Solicitacao extends Model {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<SolicitacaoLocalEntrega> locaisEntrega = new ArrayList<SolicitacaoLocalEntrega>();
 
+
+	 /** Quantidade de paginas.
+	  */
+	 private String paginas;
+    
     /**
      * Cor do serviço.
      */
@@ -372,11 +377,11 @@ public class Solicitacao extends Model {
         this.quantidade = quantidade;
     }
 
-    public Pagina getPaginas() {
+    public String getPaginas() {
         return paginas;
     }
 
-    public void setPaginas(Pagina paginas) {
+    public void setPaginas(String paginas) {
         this.paginas = paginas;
     }
 

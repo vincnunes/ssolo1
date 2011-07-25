@@ -124,7 +124,7 @@
 	<field name="transportadora.dados.fax" class="java.lang.String"/>
 	<field name="transportadora.dados.celular" class="java.lang.String"/>
 	<field name="servico.nome" class="java.lang.String"/>
-	<field name="paginas.nome" class="java.lang.String"/>
+	<field name="paginas" class="java.lang.String"/>
 	<field name="quantidade" class="java.lang.Integer"/>
 	<field name="vias" class="java.lang.Integer"/>
 	<field name="formatoAberto" class="java.lang.String"/>
@@ -918,7 +918,7 @@ $F{transportadora.dados.endereco.cidade.estado.sigla} == null ? "" : $F{transpor
 			<textField>
 				<reportElement style="DIVISAO_DADOS" x="416" y="35" width="41" height="17"/>
 				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{paginas.nome}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{paginas}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement style="DIVISAO_DADOS" x="522" y="35" width="34" height="17"/>

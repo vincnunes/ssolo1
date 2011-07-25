@@ -145,10 +145,7 @@
 						</h:inputText>
 						
 						<h:outputText value="#{msg['solicitacao.paginas']}"/>
-	                    <h:selectOneListbox id="paginaSelect" size="1" value="#{crudSolicitacao.selecionado.paginas}">
-						    <f:selectItem itemValue="null" itemLabel="..."/>
-						    <f:selectItems value="#{crudSolicitacao.paginas}"/>
-						</h:selectOneListbox>
+	                    <h:inputText id="paginasInput" value="#{crudSolicitacao.selecionado.paginas}" style="width: 50px;"/>
 	                    
 	                    <h:outputLabel value="#{msg['solicitacao.vias']}"/>
 						<h:inputText id="viasInput" value="#{crudSolicitacao.selecionado.vias}" style="width: 50px;">
