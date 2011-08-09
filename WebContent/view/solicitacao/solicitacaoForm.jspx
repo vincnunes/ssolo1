@@ -58,7 +58,7 @@
 						</h:selectOneListbox>
                         
 	                    <h:outputText value="#{msg['solicitacao.transportadora']}"/>
-						<h:selectOneListbox id="transportadoraSelect" size="1" value="#{crudSolicitacao.selecionado.transportadora}">
+						<h:selectOneListbox id="transportadoraSelect" size="1" value="#{crudSolicitacao.selecionado.transportadora}" required="true">
 						    <f:selectItem itemValue="null" itemLabel="..."/>
 						    <f:selectItems value="#{crudSolicitacao.transportadoras}"/>
 						</h:selectOneListbox>
@@ -97,14 +97,14 @@
 					<legend>${msg['solicitacao.especificacao']}</legend>
 					<h:panelGrid columns="4" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none,rotulo,none">
 	                    <h:outputText value="#{msg['solicitacao.servico']}"/>
-						<h:selectOneListbox id="servicoSelect" size="1" value="#{crudSolicitacao.selecionado.servico}" style="width: 150px;">
+						<h:selectOneListbox id="servicoSelect" size="1" value="#{crudSolicitacao.selecionado.servico}" style="width: 150px;" required="true">
 						    <f:selectItem itemValue="null" itemLabel="..."/>
 						    <f:selectItems value="#{crudSolicitacao.servicos}"/>
 						    <a4j:support event="onchange" reRender="formulario" />
 						</h:selectOneListbox>
 						
 						<h:outputLabel value="#{msg['solicitacao.quantidade']}"/>
-						<h:inputText id="quantidadeInput" value="#{crudSolicitacao.selecionado.quantidade}" style="width: 50px; margin: 0 100px 0 0;">
+						<h:inputText id="quantidadeInput" value="#{crudSolicitacao.selecionado.quantidade}" style="width: 50px; margin: 0 100px 0 0;" required="true">
 							<rich:jQuery id="maskQuantidade" query="numeric()" selector="#quantidadeInput" timing="onload"/>
 						</h:inputText>
 					</h:panelGrid>	

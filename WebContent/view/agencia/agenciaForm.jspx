@@ -29,7 +29,7 @@
 	                            rendered="#{crudAgenciaPublicitaria.selecionado.id > 0}"/>
 	                    
 	                    <h:outputText value="#{msg['dadosEmpresa.razao']}"/>
-	                    <hnvl:inputText id="razaoInput" value="#{crudAgenciaPublicitaria.selecionado.nome}"/>
+	                    <hnvl:inputText id="razaoInput" value="#{crudAgenciaPublicitaria.selecionado.nome}" required="true"/>
 	                    
 	                    <h:outputText value="#{msg['agencia.vendedor']}"/>
 	                    <f:subview id="vendedorView" rendered="#{!crudAgenciaPublicitaria.administrador}">
@@ -43,10 +43,10 @@
 						</f:subview>
 	                    
 	                    <h:outputText value="#{msg['dadosEmpresa.fantasia']}"/>
-	                    <hnvl:inputText id="fantasiaInput" value="#{crudAgenciaPublicitaria.selecionado.dados.nomeFantasia}"/>
+	                    <hnvl:inputText id="fantasiaInput" value="#{crudAgenciaPublicitaria.selecionado.dados.nomeFantasia}" required="true"/>
 	                    
 	                    <h:outputText value="#{msg['dadosEmpresa.cpfCnpj']}"/>
-	                    <h:inputText id="cnpjInput" value="#{crudAgenciaPublicitaria.selecionado.dados.cpfCnpj}" maxlength="18" >
+	                    <h:inputText id="cnpjInput" value="#{crudAgenciaPublicitaria.selecionado.dados.cpfCnpj}" maxlength="18" required="true">
 	                    	<rich:jQuery id="maskCnpjInput" query="mask('99.999.999/9999-99')" selector="#cnpjInput" timing="onload" />
 	                    </h:inputText>
 	                    
@@ -56,7 +56,7 @@
 	                    </h:inputText>
 	                    
 						<h:outputText value="#{msg['dadosEmpresa.telefone']}"/>
-	                    <h:inputText id="telefoneInput" value="#{crudAgenciaPublicitaria.selecionado.dados.telefone}" >
+	                    <h:inputText id="telefoneInput" value="#{crudAgenciaPublicitaria.selecionado.dados.telefone}"  required="true">
 	                    	<rich:jQuery id="maskTelefone" query="mask('(99)9999-9999')" selector="#telefoneInput" timing="onload"/>
 	                    </h:inputText>
 	                    
@@ -66,7 +66,7 @@
 	                    </h:inputText>
 	                    
 	                    <h:outputText value="#{msg['dadosEmpresa.celular']}"/>
-	                    <h:inputText id="celularInput" value="#{crudAgenciaPublicitaria.selecionado.dados.celular}" styleClass="telefone">
+	                    <h:inputText id="celularInput" value="#{crudAgenciaPublicitaria.selecionado.dados.celular}" styleClass="telefone" required="true">
 	                    	<rich:jQuery id="maskCelular" query="mask('(99)9999-9999')" selector="#celularInput" timing="onload"/>
 	                    </h:inputText>
 					</h:panelGrid>
@@ -75,10 +75,10 @@
 					<legend>${msg['agencia.endereco']}</legend>
 					<h:panelGrid columns="4" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none,rotulo,none">
 						<h:outputText value="#{msg['endereco.logradouro']}"/>
-						<hnvl:inputText id="logradouroInput" value="#{crudAgenciaPublicitaria.selecionado.dados.endereco.logradouro}"/>
+						<hnvl:inputText id="logradouroInput" value="#{crudAgenciaPublicitaria.selecionado.dados.endereco.logradouro}" required="true"/>
 						
 						<h:outputText value="#{msg['endereco.numero']}"/>
-						<h:inputText id="numeroInput" value="#{crudAgenciaPublicitaria.selecionado.dados.endereco.numero}" >
+						<h:inputText id="numeroInput" value="#{crudAgenciaPublicitaria.selecionado.dados.endereco.numero}"  required="true">
 							<rich:jQuery id="maskNumero" query="numeric()" selector="#numeroInput" timing="onload"/>
 						</h:inputText>
 						
@@ -86,17 +86,17 @@
 						<hnvl:inputText id="complementoInput" value="#{crudAgenciaPublicitaria.selecionado.dados.endereco.complemento}"/>
 						
 						<h:outputText value="#{msg['endereco.bairro']}"/>
-						<hnvl:inputText id="bairroInput" value="#{crudAgenciaPublicitaria.selecionado.dados.endereco.bairro}"/>
+						<hnvl:inputText id="bairroInput" value="#{crudAgenciaPublicitaria.selecionado.dados.endereco.bairro}" required="true"/>
 						
 						<h:outputText value="#{msg['endereco.estado']}"/>
-						<h:selectOneListbox id="estadoSelect" size="1" value="#{crudAgenciaPublicitaria.estado}" >
+						<h:selectOneListbox id="estadoSelect" size="1" value="#{crudAgenciaPublicitaria.estado}" required="true">
 						    <f:selectItem itemValue="null" itemLabel="..."/>
 						    <f:selectItems value="#{crudAgenciaPublicitaria.estados}"/>
 						    <a4j:support event="onchange" reRender="formulario" />
 						</h:selectOneListbox>
 						
 						<h:outputText value="#{msg['endereco.cidade']}"/>
-						<h:selectOneListbox id="cidadeSelect" size="1" value="#{crudAgenciaPublicitaria.selecionado.dados.endereco.cidade}" >
+						<h:selectOneListbox id="cidadeSelect" size="1" value="#{crudAgenciaPublicitaria.selecionado.dados.endereco.cidade}" required="true">
 						    <f:selectItem itemValue="null" itemLabel="..."/>
 						    <f:selectItems value="#{crudAgenciaPublicitaria.cidades}"/>
 						</h:selectOneListbox>

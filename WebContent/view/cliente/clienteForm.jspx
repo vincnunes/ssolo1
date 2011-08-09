@@ -28,7 +28,7 @@
 	                            rendered="#{crudCliente.selecionado.id > 0}"/>
 	                    
 	                    <h:outputText value="#{msg['dadosEmpresa.razao']}"/>
-	                    <hnvl:inputText id="razaoInput" value="#{crudCliente.selecionado.nome}"/>
+	                    <hnvl:inputText id="razaoInput" value="#{crudCliente.selecionado.nome}" required="true"/>
 	                    
 	                    <h:outputText value="#{msg['cliente.vendedor']}"/>
 	                    <f:subview id="vendedorView" rendered="#{!crudCliente.administrador}">
@@ -43,7 +43,7 @@
 						</f:subview>
 	                    
 	                    <h:outputText value="#{msg['dadosEmpresa.fantasia']}"/>
-	                    <hnvl:inputText id="fantasiaInput" value="#{crudCliente.selecionado.dados.nomeFantasia}"/>
+	                    <hnvl:inputText id="fantasiaInput" value="#{crudCliente.selecionado.dados.nomeFantasia}" required="true"/>
 	                    
 	                    <h:outputText value="#{msg['cliente.pessoa']}"/>
 	                    <h:selectOneRadio id="pessoaInput" value="#{crudCliente.selecionado.pessoa}">
@@ -55,7 +55,7 @@
 	                    	<h:outputLabel value="#{msg['dadosEmpresa.cpfCnpj']}"/>
 	                    </f:subview>
 						<f:subview id="cpfView" rendered="#{crudCliente.pessoaFisica}">
-		                    <h:inputText id="cpfInput" value="#{crudCliente.selecionado.dados.cpfCnpj}" maxlength="14">
+		                    <h:inputText id="cpfInput" value="#{crudCliente.selecionado.dados.cpfCnpj}" maxlength="14" required="true">
 		                    	<rich:jQuery id="maskCpfInput" query="mask('999.999.999-99')" selector="#cpfInput" timing="onload" />
 		                    	<rich:jQuery id="focoCPF" query="focus()" selector="#cpfInput" timing="immediate"/>
 		                    </h:inputText>
@@ -64,7 +64,7 @@
 							<h:outputLabel value="#{msg['dadosEmpresa.cpfCnpj']}"/>
 	                    </f:subview>
 						<f:subview id="cnpjView" rendered="#{crudCliente.pessoaJuridica}">
-		                    <h:inputText id="cnpjInput" value="#{crudCliente.selecionado.dados.cpfCnpj}" maxlength="18">
+		                    <h:inputText id="cnpjInput" value="#{crudCliente.selecionado.dados.cpfCnpj}" maxlength="18" required="true">
 		                    	<rich:jQuery id="maskCnpjInput" query="mask('99.999.999/9999-99')" selector="#cnpjInput" timing="onload" />
 		                    	<rich:jQuery id="focoCNPJ" query="focus()" selector="#cnpjInput" timing="immediate"/>
 		                    </h:inputText>
@@ -82,20 +82,20 @@
 						</h:selectOneListbox>
 						
 						<h:outputText value="#{msg['dadosEmpresa.email']}"/>
-	                    <hnvl:inputText id="emailInput" value="#{crudCliente.selecionado.dados.email}"/>
+	                    <hnvl:inputText id="emailInput" value="#{crudCliente.selecionado.dados.email}" required="true"/>
 	                    
 	                    <h:outputText value="#{msg['dadosEmpresa.telefone']}"/>
-	                    <h:inputText id="telefoneInput" value="#{crudCliente.selecionado.dados.telefone}" >
+	                    <h:inputText id="telefoneInput" value="#{crudCliente.selecionado.dados.telefone}" required="true">
 	                    	<rich:jQuery id="maskTelefone" query="mask('(99)9999-9999')" selector="#telefoneInput" timing="onload"/>
 	                    </h:inputText>
 	                    
 	                    <h:outputText value="#{msg['dadosEmpresa.fax']}"/>
-	                    <h:inputText id="faxInput" value="#{crudCliente.selecionado.dados.fax}" >
+	                    <h:inputText id="faxInput" value="#{crudCliente.selecionado.dados.fax}">
 	                    	<rich:jQuery id="maskFax" query="mask('(99)9999-9999')" selector="#faxInput" timing="onload"/>
 	                    </h:inputText>
 	                    
 	                    <h:outputText value="#{msg['dadosEmpresa.celular']}"/>
-	                    <h:inputText id="celularInput" value="#{crudCliente.selecionado.dados.celular}">
+	                    <h:inputText id="celularInput" value="#{crudCliente.selecionado.dados.celular}" required="true">
 	                    	<rich:jQuery id="maskCelular" query="mask('(99)9999-9999')" selector="#celularInput" timing="onload"/>
 	                    </h:inputText>
 					</h:panelGrid>
@@ -104,10 +104,10 @@
 					<legend>${msg['cliente.endereco']}</legend>
 					<h:panelGrid columns="4" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none,rotulo,none">
 						<h:outputText value="#{msg['endereco.logradouro']}"/>
-						<hnvl:inputText id="logradouroInput" value="#{crudCliente.selecionado.dados.endereco.logradouro}"/>
+						<hnvl:inputText id="logradouroInput" value="#{crudCliente.selecionado.dados.endereco.logradouro}" required="true"/>
 						
 						<h:outputText value="#{msg['endereco.numero']}"/>
-						<h:inputText id="numeroInput" value="#{crudCliente.selecionado.dados.endereco.numero}">
+						<h:inputText id="numeroInput" value="#{crudCliente.selecionado.dados.endereco.numero}" required="true">
 							<rich:jQuery id="maskNumero" query="numeric()" selector="#numeroInput" timing="onload"/>
 						</h:inputText>
 						
@@ -115,16 +115,16 @@
 						<hnvl:inputText id="complementoInput" value="#{crudCliente.selecionado.dados.endereco.complemento}"/>
 						
 						<h:outputText value="#{msg['endereco.bairro']}"/>
-						<hnvl:inputText id="bairroInput" value="#{crudCliente.selecionado.dados.endereco.bairro}"/>
+						<hnvl:inputText id="bairroInput" value="#{crudCliente.selecionado.dados.endereco.bairro}" required="true"/>
 						
 						<h:outputText value="#{msg['endereco.estado']}"/>
-						<h:selectOneListbox id="estadoSelect" size="1" value="#{crudCliente.estado}" >
+						<h:selectOneListbox id="estadoSelect" size="1" value="#{crudCliente.estado}" required="true">
 						    <f:selectItem itemValue="null" itemLabel="..."/>
 						    <f:selectItems value="#{crudCliente.estados}"/>
 						    <a4j:support event="onchange" reRender="formulario" />
 						</h:selectOneListbox>
 						
-						<h:outputText value="#{msg['endereco.cidade']}"/>
+						<h:outputText value="#{msg['endereco.cidade']}" required="true"/>
 						<h:selectOneListbox id="cidadeSelect" size="1" value="#{crudCliente.selecionado.dados.endereco.cidade}" >
 						    <f:selectItem itemValue="null" itemLabel="..."/>
 						    <f:selectItems value="#{crudCliente.cidades}"/>
@@ -187,11 +187,11 @@
 					<legend>${msg['contato.title']}</legend>
 					<h:panelGrid columns="6" styleClass="tab-edita" cellspacing="5" columnClasses="rotulo,none,rotulo,none,rotulo,none">
 						<h:outputText value="#{msg['cliente.contato.compras']}"/>
-						<hnvl:inputText id="contatoComprasInput" value="#{crudCliente.selecionado.contatoCompras}" style="width: 80px;"/>
+						<hnvl:inputText id="contatoComprasInput" value="#{crudCliente.selecionado.contatoCompras}" style="width: 80px;" required="true"/>
 						<h:outputText value="#{msg['cliente.contato.financeiro']}"/>
-						<hnvl:inputText id="contatoFinanceiroInput" value="#{crudCliente.selecionado.contatoFinanceiro}" style="width: 80px;"/>
+						<hnvl:inputText id="contatoFinanceiroInput" value="#{crudCliente.selecionado.contatoFinanceiro}" style="width: 80px;" required="true"/>
 						<h:outputText value="#{msg['cliente.contato.diretor']}"/>
-						<hnvl:inputText id="diretorInput" value="#{crudCliente.selecionado.contatoCompras}" style="width: 80px;"/>
+						<hnvl:inputText id="diretorInput" value="#{crudCliente.selecionado.contatoCompras}" style="width: 80px;" required="true"/>
 					</h:panelGrid>
                     <rich:dataGrid columns="1" value="#{crudCliente.selecionado.dados.contatos}" var="ct"
                             rendered="#{not empty crudCliente.selecionado.dados.contatos}">

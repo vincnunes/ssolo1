@@ -446,7 +446,7 @@ public class CrudSolicitacaoBean extends CrudBeanGenerico<Solicitacao, CrudSolic
 
 		return false;
 	}
-	
+
 	/**
 	 * Testar tipo de servico Encarte.
 	 * @return verdadeiro se o serviço for encarte.
@@ -483,6 +483,17 @@ public class CrudSolicitacaoBean extends CrudBeanGenerico<Solicitacao, CrudSolic
 		getSelecionado().setBv(bv);
 		if (getSelecionado().getDataCadastro() == null) {
 			getSelecionado().setDataCadastro(new Date());
+		}
+
+		if (getSelecionado().getAgencia() == null &&
+		        getSelecionado().getCliente() == null) {
+		    addErrorMessage("commons.error.cliente.agencia.obrigatorio", new String[]{});
+		    return Outcome.ERROR;
+		}
+
+		if (getSelecionado().getPapel().isEmpty()) {
+		    addErrorMessage("commons.error.papel.gramatura.obrigatorio", new String[]{});
+		    return Outcome.ERROR;
 		}
 
 		return super.salvar();
@@ -525,9 +536,9 @@ public class CrudSolicitacaoBean extends CrudBeanGenerico<Solicitacao, CrudSolic
     public void relatorioRegistro() {
     	List<Solicitacao> registro = new ArrayList<Solicitacao>();
     	registro.add(getSelecionado());
-    	
+
     	Hashtable<Object, Object> parameters = new Hashtable<Object, Object>();
-    	
+
 		relatorioPDF(registro, parameters);
 	}
 
